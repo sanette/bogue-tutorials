@@ -56,7 +56,7 @@
    Then let's start:
 
    + {{!page-hello}Hello world}
-   + {Counter} TODO
+   + Counter TODO
    + {{!page-modif_parent}Self-modifying layouts}
    + More to come...
 *)
