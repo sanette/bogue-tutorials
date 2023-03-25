@@ -5,8 +5,8 @@
 (authors "San Vũ Ngọc")
 (maintainers "San Vũ Ngọc")
 (license CC-BY-NC-4.0_and_Apache-2.0)
-
 (documentation https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html)
+(formatting disabled)
 
 (package
  (name bogue-tutorials)
