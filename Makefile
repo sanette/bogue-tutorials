@@ -36,3 +36,6 @@ view:	$(DOCDIR)
 
 docs: $(DOCDIR)
 	rsync -av $(DOCDIR)/../ docs
+	cd docs; mv _odoc_support odoc_support
+	find docs -name *.html -exec sed -i 's|_odoc_support|odoc_support|g' {} \;
+
