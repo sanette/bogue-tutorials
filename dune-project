@@ -1,4 +1,4 @@
-(lang dune 3.7)
+(lang dune 3.0)
 (name bogue-tutorials)
 (generate_opam_files true)
 (source (github sanette/bogue-tutorials.git))
@@ -12,6 +12,9 @@
  (name bogue-tutorials)
  (synopsis "Bogue Tutorials")
  (description "Several tutorials for learning how to create GUIs with Bogue")
- (depends (bogue (>= 20221112)))
+ (depends
+   ocaml
+   dune
+  (bogue (>= 20221112)))
  (tags
   (bogue tutorial)))

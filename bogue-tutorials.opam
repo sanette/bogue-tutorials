@@ -7,10 +7,11 @@ authors: ["San Vũ Ngọc"]
 license: "CC-BY-NC-4.0_and_Apache-2.0"
 tags: ["bogue" "tutorial"]
 homepage: "https://github.com/sanette/bogue-tutorials.git"
-doc: "https://url/to/documentation"
+doc: "https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html"
 bug-reports: "https://github.com/sanette/bogue-tutorials.git/issues"
 depends: [
-  "dune" {>= "3.7"}
+  "ocaml"
+  "dune" {>= "3.0"}
   "bogue" {>= "20221112"}
   "odoc" {with-doc}
 ]
