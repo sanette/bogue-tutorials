@@ -16,8 +16,8 @@
    This will ensure that the whole code is compatible with your
    {{:https://github.com/sanette/bogue}Bogue} install. In fact, if you didn't
    install Bogue beforehand, this will automatically install a compatible
-   version. You may append the option [--deps-only] if you don't want to install
-   the executables.
+   version. You can also download the source and [opam install .]; you may
+   append the option [--deps-only] if you don't want to install the executables.
 
    {1 How to execute these tutorials}
 
