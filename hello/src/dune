@@ -1,0 +1,6 @@
+(executable
+ (name hello)
+ (libraries bogue))
+
+(documentation
+(mld_files hello))

@@ -1,0 +1,6 @@
+(executable
+ (name modif_parent)
+ (libraries bogue))
+
+(documentation
+(mld_files modif_parent))

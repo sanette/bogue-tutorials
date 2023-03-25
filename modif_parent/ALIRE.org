@@ -1,0 +1,3 @@
+ffmpeg -i videocapture-2023-03-12_10.11.49 -s 322x631 -r 15 ccc.webp
+
+(webp produit des fichiers beaucoup plus petits que gif, et lisible par firefox)

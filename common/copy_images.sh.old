@@ -1,0 +1,15 @@
+#!/bin/bash -e
+# copy images references in ml files to odoc subdir specified by first arg
+# very Basic! "img src" should be one the same line!
+
+dir=$1
+shift
+
+for ml in "$@"
+do
+    for i in $(grep 'img src=' $ml | sed "s|.* src=\"\([^\"]*\)\".*|\1|g")
+    do
+	echo "Copy [$i]"
+	cp "$i" ../../_build/default/_doc/_html/$dir/
+    done
+done

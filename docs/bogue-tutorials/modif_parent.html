@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>modif_parent (bogue-tutorials.modif_parent)</title><link rel="stylesheet" href="../_odoc_support/odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.2.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../_odoc_support/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">bogue-tutorials</a> &#x00BB; modif_parent</nav><header class="odoc-preamble"><h1 id="bogue-tutorial-—-self-modifying-layouts."><a href="#bogue-tutorial-—-self-modifying-layouts." class="anchor"></a>Bogue tutorial — Self-modifying layouts.</h1><style>.figure img{max-width:100%;}</style><p>Bogue is built upon the simple concept of <em>connection</em>, which allows two remote widgets to communicate, and execute an action triggered by some event. For instance, a <em>Text input</em> widget can connect to a <em>Search engine</em> widget, in order to send it what the user typed at each key press, and in turn the <em>Search engine</em> is connected to the <em>Display</em> widget to tell it to print the results when they arrive.</p><p>Things become more involved when the action triggered by the widget wants to modify a Layout to which the widget itself belongs... There are two potential issues:</p><p>1. <em>Destructive connection:</em> the original widget may be detroyed by its own action, hence often a new widget will have to be created again.</p><p>2. <em>Recursive connection:</em> the action has to take care of recreating a new connection for the new widget: the function which creates the connection, and the function which creates the Layout must be mutually recursive.</p><p>In this tutorial we will see different ways of constructing a very simple GUI that has these issues. See <a href="index.html">here</a> for how to use this tutorial.</p></header><nav class="odoc-toc"><ul><li><a href="#the-goal">The goal</a></li><li><a href="#non-gui-first">Non-GUI first</a></li><li><a href="#the-&quot;disconnected&quot;-gui-elements">The &quot;disconnected&quot; GUI elements</a></li><li><a href="#method-1:-mutually-recursive-functions">Method 1: mutually recursive functions</a></li><li><a href="#method-2:-use-update-events-to-get-rid-of-recursivity!">Method 2: use update events to get rid of recursivity!</a></li><li><a href="#method-3:-immediate-mode">Method 3: immediate mode</a></li><li><a href="#method-4:-mixed-approach">Method 4: mixed approach</a></li><li><a href="#so-what?">So what?</a><ul><li><a href="#video">Video</a></li></ul></li></ul></nav><div class="odoc-content"><h2 id="the-goal"><a href="#the-goal" class="anchor"></a>The goal</h2><p>Here we will work out a simple example. Our GUI will print a list of random integers between 1 and 10; if the user clicks on an integer, the list will be replaced by a new list, whose number of elements is precisely the integer that was clicked. (<em>Spoiler:</em> see the <a href="#video">Video</a> below!)</p><pre>   -------                                           -------
+   |  3  |                                           |  5  |
+   -------                                           -------
+   |  2  |   ==&gt; user clicks on &quot;2&quot;                  |  3  |
+   -------   ===&gt; we get a new list of 2 elements:   -------
+   |  6  |
+   -------
+   |  1  |
+   -------</pre><p>We will propose 4 different ways of doing this. But first, let us introduce some common parts.</p><p>In many <code>Bogue</code> programs it is useful to alias the most common modules, <code>Widget</code> and <code>Layout</code>, so let's start with this:</p><pre class="language-ocaml"><code>open Bogue
+module W = Widget
+module L = Layout</code></pre><h2 id="non-gui-first"><a href="#non-gui-first" class="anchor"></a>Non-GUI first</h2><p>Most of the time, it is advisable to start by thinking about the non-GUI parts, as this is the core of the program.</p><p>For our goal, the program deals with lists of integers. Let us name a data type for this:</p><pre class="language-ocaml"><code>type ilist = int list</code></pre><p>Now, here is our data creating function. We need a function that creates a new random list of a given length.</p><pre class="language-ocaml"><code>let imake len : ilist =
+  Array.init len (fun _ -&gt; Random.int 9 + 1)
+  |&gt; Array.to_list</code></pre><h2 id="the-&quot;disconnected&quot;-gui-elements"><a href="#the-&quot;disconnected&quot;-gui-elements" class="anchor"></a>The &quot;disconnected&quot; GUI elements</h2><p>Let us now turn to the GUI elements. We need to create a Button widget for displaying a given integer. We don't define the button action here, because of the mutually recursive issue, we will add it later.</p><pre class="language-ocaml"><code>let make_button i =
+  W.button ~kind:Button.Trigger (string_of_int i)</code></pre><p>This is enough to create a list of widgets associated with our data:</p><pre class="language-ocaml"><code>let create_widgets il =
+  List.map make_button il</code></pre><p>With this, we can already display our GUI! But it will do nothing when we click on it, because we didn't create any connection:</p><pre class="language-ocaml"><code>let () =
+  Random.int 9 + 1
+  |&gt; imake
+  |&gt; create_widgets
+  |&gt; L.tower_of_w ~w:200 ~name:&quot;Non-connected GUI&quot;
+  |&gt; Bogue.of_layout
+  |&gt; Bogue.run</code></pre><p>Some explanation:</p><ul><li>The function <a href="http://sanette.github.io/bogue/Bogue.Layout.html#VALtower_of_w"><code>tower_of_w</code></a> piles up a list of widgets (our buttons) to create a Layout.</li></ul><ul><li>Our layout is then upgraded into a Bogue GUI with only one window by <a href="http://sanette.github.io/bogue/Bogue.Main.html#VALof_layout"><code>Bogue.of_layout</code></a>.</li></ul><p>If we execute the code above, we see a window like this:</p><div class="figure"><img src="non-connected.png" srcset="non-connected.png 2x"></div><p>If we click a button, nothing happens, as expected.</p><h2 id="method-1:-mutually-recursive-functions"><a href="#method-1:-mutually-recursive-functions" class="anchor"></a>Method 1: mutually recursive functions</h2><p>Let us write a function that connects one button: <code>make_connection</code>. The parameter <code>i</code> is the integer held by the <code>button</code> widget. The connection is triggered by the <code>buttons_up</code> list of events, and results in:</p><ol><li>creating a new list;</li><li>updating the layout with the new list.</li></ol><pre class="language-ocaml"><code>let rec make_connection layout button i =
+  let action _ _ _ = update_layout layout (imake i) in
+  W.connect_main button button action Trigger.buttons_up
+  |&gt; W.add_connection button</code></pre><p><b>Remarks:</b></p><ol><li>Notice that the connection has no target widget, hence we connect the button to itself.</li><li>This code easily extends to any kind of widget, but, since we dealing with buttons, it is actually better to use the dedicated function: <code>W.on_button_release</code>, because it will also handle keyboard selection (TAB+ENTER). Just write instead:</li></ol><pre class="language-ocaml"><code>let rec make_connection layout button i =
+  let release _ = update_layout layout (imake i) in
+  W.on_button_release ~release button</code></pre><p>In order to update the layout, we install the new widgets inside the main (window) layout using <code>set_rooms</code>, and connect them with <code>make_connection</code>. We also resize the window accordingly thanks to <code>fit_content</code>. Notice that, by default, <code>set_rooms</code> is not executed immediately, but synchronized with Bogue's main loop. Therefore, the call to <code>fit_content</code> must be synchronized as well to make sure it is executed <em>after</em> <code>set_rooms</code>.</p><pre class="language-ocaml"><code>and update_layout layout il =
+  let widgets = create_widgets il in
+  let tower = L.tower_of_w ~w:200 widgets in
+  L.set_rooms layout [tower];
+  Sync.push (fun () -&gt; L.fit_content ~sep:0 layout);
+  List.iter2 (make_connection layout) widgets il</code></pre><p>We have now a working GUI! Since the main layout will be populated by <code>update_layout</code>, we just need to initialize it as an <code>empty</code> layout. Here we don't care about the initial size (200,400) since it will be immediately modified by <code>update_layout</code>.</p><pre class="language-ocaml"><code>let () =
+  let layout = L.empty ~w:200 ~h:400 ~name:&quot;Method 1: recursive&quot; () in
+  let () = Random.int 9 + 1
+           |&gt; imake
+           |&gt; update_layout layout in
+  Bogue.run (Bogue.of_layout layout)</code></pre><p>You should see a window like this:</p><div class="figure"><img src="connected.png" srcset="connected.png 2x"></div><p>and clicking on the &quot;2&quot; button should replace the list by a 2-element list:</p><div class="figure"><img src="connected_2.png" srcset="connected_2.png 2x"></div><p>And the new buttons are again clickable to modify the list. Goal achieved!</p><h2 id="method-2:-use-update-events-to-get-rid-of-recursivity!"><a href="#method-2:-use-update-events-to-get-rid-of-recursivity!" class="anchor"></a>Method 2: use update events to get rid of recursivity!</h2><p>Mutually recursive functions can be hard to debug, especially if your program becomes large and the recursivity spreads over many functions.</p><p>In this case it is useful to think of the <em>update event</em> method. The button and its parent house share the data via a global variable, and, when clicked, the button just needs to ask its parent to update. (Of course, this programming style feels less &quot;functional&quot;.)</p><pre class="language-ocaml"><code>let my_list = ref []</code></pre><p>We need to create a widget that will receive the <code>update</code> event; let's call it <code>controller</code>. This <code>empty</code> widget just does the logic, it's not associated with any graphical element.</p><pre class="language-ocaml"><code>let controller = W.empty ~w:0 ~h:0 ()</code></pre><p>Now the only thing that the button should do, when clicked, is to send the update event to the controller, using <code>Update.push</code>. Since there is no recursivity, we can define the button <em>and</em> its behaviour when clicked at once, using the <code>~action</code> parameter.</p><pre class="language-ocaml"><code>let make_button i =
+  W.button ~kind:Button.Trigger (string_of_int i)
+    ~action:(fun _ -&gt;
+        my_list := imake i;
+        Update.push controller)
+
+let create_widgets il =
+  List.map make_button il
+
+let update_layout layout =
+  let widgets = create_widgets !my_list in
+  let tower = L.tower_of_w ~w:200 widgets in
+  L.set_rooms layout [tower];
+  Sync.push (fun () -&gt; L.fit_content ~sep:0 layout)</code></pre><p>The controller's action needs to know which <code>layout</code> to update, so we have to create its connection <em>after</em> the layout:</p><pre class="language-ocaml"><code>let () =
+  let layout = L.empty ~w:200 ~h:400 ~name:&quot;Method 2: update event&quot; () in
+  let c = W.connect_main controller controller
+      (fun _ _ _ -&gt; update_layout layout) [Trigger.update] in
+  my_list := imake (Random.int 9 + 1);
+  update_layout layout;
+  Bogue.run (Bogue.of_layout ~connections:[c] layout)</code></pre><p>Notice how, for a change, we didn't manually add the <code>c</code> connection to the <code>controller</code> widget; instead we pass it to <code>Bogue.of_layout</code> which takes care of it. This is equivalent.</p><h2 id="method-3:-immediate-mode"><a href="#method-3:-immediate-mode" class="anchor"></a>Method 3: immediate mode</h2><p>You don't like connections and events? No problem, if the GUI is not too big, we can use the so-called &quot;immediate&quot; style.</p><p><b>Immediate vs. retained:</b> Internet if full of dubious posts about the difference between the so-called &quot;immediate mode&quot; and &quot;retained mode&quot;, and the adepts of the former claim that its detractors don't know what they are talking about. Admittedly, the Wikipedia pages for both are (as of 2023) of really bad quality. I don't want to enter this debate, so you can remove the word &quot;immediate&quot;, or replace it with &quot;synchronized&quot; or anything else if you prefer.</p><p>The rough idea of the &quot;immediate&quot; programming style is that, instead of considering a button (or other widgets) as an active component which sends a message or executes an action when pressed (which is the role of Bogue's connections), we view it as a passive component which holds a value, and whoever wants to use this value can just immediately take it and act with it. Since a widget then becomes a plain variable, it is much simpler to reason with. In pseudo-code:</p><pre class="language-ocaml"><code>if button.is_pressed then do_this </code></pre><p>The downside is that we don't know when the button state has been modified, so we need to poll it continuously. Hence we will implement this style by using the <code>before_display</code> option of <a href="http://sanette.github.io/bogue/Bogue.Main.html#VALrun"><code>Bogue.run</code></a>.</p><p>OK let's start. The creation of buttons cannot be simpler: same as in the &quot;disconnected&quot; section.</p><pre class="language-ocaml"><code>let make_button i =
+  W.button ~kind:Button.Trigger (string_of_int i)
+
+let create_widgets il =
+  List.map make_button il</code></pre><p>Layouting is also easy. Notice that the <code>update_layout</code> function is similar to the previous one from Method 2, but now we should not force synchronization (it will be automatic).</p><pre class="language-ocaml"><code>let update_layout layout il =
+  my_list := il;
+  let tower = L.tower_of_w ~w:200 (create_widgets il) in
+  L.set_rooms ~sync:false layout [tower];
+  L.fit_content ~sep:0 layout</code></pre><p>Next, we need a function which tells us which button was pressed (if any, so we return an <code>int option</code>).</p><p>For this, we query the internals of our main layout as follows.</p><pre class="language-ocaml"><code>let button_clicked room =
+  let b = L.widget room in
+  W.get_state b
+
+let get_button_from_tower tower =
+  let rooms = L.get_rooms tower in
+  let rec loop2 = function
+    | r::other_rooms, i::other_ints -&gt;
+      if button_clicked r then Some i
+      else loop2 (other_rooms, other_ints)
+    | _ -&gt; None in
+  loop2 (rooms, !my_list)</code></pre><p>A danger of the &quot;immediate&quot; style is that, if we push the paradigm too far, we may be tempted to recreate the whole GUI at each frame, which is not a good idea (and Bogue will not like it!). To avoid this, our new <code>update_list</code> function will return <code>None</code> if no button was pressed.</p><pre class="language-ocaml"><code>let update_list layout =
+  List.hd (L.get_rooms layout)
+  |&gt; get_button_from_tower
+  |&gt; Option.map imake</code></pre><p>In this way, we will be able to call our <code>update_layout</code> function only when the result of <code>update_list</code> is not <code>None.</code></p><pre class="language-ocaml"><code>let () =
+  let layout = L.empty ~w:200 ~h:400 ~name:&quot;Method 3: immediate mode&quot; () in
+  update_layout layout (imake (Random.int 9 + 1));
+  let before_display () =
+    update_list layout
+    |&gt; Option.iter (update_layout layout) in
+  Bogue.run ~before_display (Bogue.of_layout layout)</code></pre><p>This works perfectly! No connection, no recursivity, so... do we have a winner here?</p><p>Well, you can't win on all fronts; the devil is now transferred into the <code>get_button_from_tower</code> function. Indeed, this function relies on a particular organisation of the layout tree. If we decide to move our list of buttons to a different box, or include images for decoration, or add tooltips, then the function will probably fail. Bogue's philosophy is rather to <em>not try</em> to keep track of the layout tree. Connections are more robust because they are attached to the widgets, so whatever the layout we construct to host the widgets, the connections will always work.</p><h2 id="method-4:-mixed-approach"><a href="#method-4:-mixed-approach" class="anchor"></a>Method 4: mixed approach</h2><p>For more complex GUIs we can use a <em>mixed approach</em>, which uses a simple button action for implementing a good <code>get_pressed_button</code>, and then an immediate style for <code>update_layout</code>.</p><pre class="language-ocaml"><code>let pressed_button = ref None
+let get_pressed_button () =
+  let b = !pressed_button
+  in pressed_button := None;
+  b
+
+let make_button i =
+  W.button ~kind:Button.Trigger (string_of_int i)
+    ~action:(fun _ -&gt; pressed_button := Some i)
+
+let create_widgets il =
+  List.map make_button il</code></pre><p>The new <code>update_list</code> function is now very simple:</p><pre class="language-ocaml"><code>let update_list () =
+  get_pressed_button ()
+  |&gt; Option.map imake</code></pre><p>We keep the same <code>update_layout</code> function as in the Immediate Method (except that we don't need the global variable <code>my_list</code> anymore), and the main call is essentially the same too:</p><pre class="language-ocaml"><code>let update_layout layout il =
+  let tower = L.tower_of_w ~w:200 (create_widgets il) in
+  L.set_rooms ~sync:false layout [tower];
+  L.fit_content ~sep:0 layout
+
+let () =
+  let layout = L.empty ~w:200 ~h:400 ~name:&quot;Method 4: mixed approach&quot; () in
+  update_layout layout (imake (Random.int 9 + 1));
+  let before_display () =
+    update_list ()
+    |&gt; Option.iter (update_layout layout) in
+  Bogue.run ~before_display (Bogue.of_layout layout)</code></pre><h2 id="so-what?"><a href="#so-what?" class="anchor"></a>So what?</h2><p>Some words of conclusion.</p><p>First, if you went through the four methods above, congrats! You now have a fairly complete overview of how Bogue works, and you should be able to program essentially any kind of GUI.</p><p>Next, don't think that this recursivity problem is just an academic issue. (Maybe you noticed the similarity with a <em>file chooser</em>?) In my experience, it happens quite often, even in moderately complex GUIs, that widgets end up having a circular definition.</p><p>But, finally, which method is the best? I don't really know! I guess it all depends on your programming taste and the type of GUI you want to construct. Games and tools are very different in spirit. Method 1 is maybe more elegant from the viewpoint of functional programming, but tracking the cycle of depencencies is often hard in real applications. Method 2 is probably the most flexible, the most &quot;Bogue-esque&quot;, and adapts to virtually all kinds of situations. On the other hand, if you are not used to think in terms of interacting objects, and prefer the flow of a usual program, I believe that Method 4 is a good choice. The only thing that I don't recommend is the 'layout tree parsing' of <code>get_button_from_tower</code> from Method 3. Sometimes you need to inspect the layout tree and that's fine if you have a way to certify that the tree structure is invariant, but in most situations you should first ask yourself: is there another way?</p><h6 id="video"><a href="#video" class="anchor"></a>Video</h6><div class="figure"><img src="modif_video.webp" srcset="modif_video.webp 2x"></div><p>Happy Bogue-ing!</p></div></body></html>
