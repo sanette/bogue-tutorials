@@ -1,5 +1,7 @@
+DUNE = opam exec -- dune
+
 all:	mld
-	dune build @check
+	$(DUNE) build @check
 .PHONY: all
 
 mld:	src
@@ -16,7 +18,7 @@ view:
 .PHONY: view
 
 exe:
-	dune exec src/hello.exe
+	$(DUNE) exec src/hello.exe
 .PHONY: exe
 
 images:

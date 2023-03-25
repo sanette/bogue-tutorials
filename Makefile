@@ -1,8 +1,9 @@
 SUBDIRS = common hello modif_parent
 DOCDIR = _build/default/_doc/_html/bogue-tutorials
+DUNE = opam exec -- dune
 
 all: images
-	dune build
+	$(DUNE) build
 .PHONY: all
 
 .PHONY: subdirs $(SUBDIRS)
@@ -19,13 +20,13 @@ images: $(DOCDIR)
 .PHONY: images
 
 $(DOCDIR): mld
-	dune build @doc # this removes images
+	$(DUNE) build @doc # this removes images
 
 clean:
 	$(MAKE) -C common clean
 	$(MAKE) -C hello clean
 	$(MAKE) -C modif_parent clean
-	dune clean
+	$(DUNE) clean
 	rm -rf docs
 .PHONY: clean
 

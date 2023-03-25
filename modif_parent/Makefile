@@ -1,5 +1,7 @@
+DUNE = opam exec -- dune
+
 all:	mld
-	dune build @check
+	$(DUNE) build @check
 .PHONY: all
 
 mld:	src
@@ -8,7 +10,7 @@ mld:	src
 
 clean:
 	$(MAKE) -C src clean
-	dune clean
+	$(DUNE) clean
 .PHONY: clean
 
 view:
@@ -17,7 +19,7 @@ view:
 .PHONY: view
 
 exe:
-	dune exec src/modif_parent.exe
+	$(DUNE) exec src/modif_parent.exe
 .PHONY: exe
 
 images:
