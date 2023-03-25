@@ -10,7 +10,7 @@
    your machine:
 
    {[
-     opam install bogue-tutorials
+     opam pin https://github.com/sanette/bogue-tutorials.git
    ]}
 
    This will ensure that the whole code is compatible with your

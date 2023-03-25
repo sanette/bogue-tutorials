@@ -1,3 +1,6 @@
+# "make all" is enough to browse the tutorials in $(DOCDIR) ("make view")
+# use "make docs" to copy everything in the docs dir (like in the github repo)
+#
 SUBDIRS = common hello modif_parent
 DOCDIR = _build/default/_doc/_html/bogue-tutorials
 DUNE = opam exec -- dune
