@@ -1,9 +1,10 @@
 ML_FILES = $(wildcard *.ml)
 MLD_TARGETS = $(ML_FILES:.ml=.mld)
 COMMON_DIR = .
+DUNE = opam exec -- dune
 
 all:	mld
-	dune build @check
+	$(DUNE) build @check
 .PHONY: all
 
 mld:	$(MLD_TARGETS)
@@ -18,5 +19,5 @@ images:
 
 clean:
 	rm -f $(MLD_TARGETS)
-	dune clean
+	$(DUNE) clean
 .PHONY: clean
