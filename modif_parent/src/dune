@@ -1,5 +1,6 @@
 (executable
  (name modif_parent)
+ (public_name bogue-tutorials.modif_parent)
  (libraries bogue))
 
 (documentation

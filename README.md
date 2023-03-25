@@ -15,8 +15,10 @@ You can also download the repository and open
 `docs/bogue-tutorials/index.html` in a browser.
 
 All tutorials come with automatically tested code, which can be
-executed if you download the source and execute `make exe` within a
-tutorial directory.
+executed if you download the source and run `make exe` within a
+tutorial directory. If you installed the `bogue-tutorials` opam
+package, you may simply execute the `bogue-tutorials.xxx`
+programs. (Replace `xxx` by the name of the tutorial.)
 
 Of course, the code can also be manually copy-pasted in an OCaml
 toplevel (REPL). See

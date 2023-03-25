@@ -30,12 +30,16 @@ clean:
 	rm -rf docs
 .PHONY: clean
 
-view:	$(DOCDIR)
+view:	css
 	sensible-browser $(DOCDIR)/index.html
 .PHONY: view
 
-docs: $(DOCDIR)
-	rsync -av $(DOCDIR)/../ docs
-	cd docs; mv _odoc_support odoc_support
-	find docs -name *.html -exec sed -i 's|_odoc_support|odoc_support|g' {} \;
+css: images
+	chmod 644  $(DOCDIR)/../_odoc_support/odoc.css
+	echo ".sidenote{font-size:smaller;background:whitesmoke;" >> $(DOCDIR)/../_odoc_support/odoc.css
+.PHONY: css
 
+docs: css
+	rsync -av $(DOCDIR)/../ docs
+	cd docs; rm -rf odoc_support; mv _odoc_support odoc_support
+	find docs -name *.html -exec sed -i 's|_odoc_support|odoc_support|g' {} \;
