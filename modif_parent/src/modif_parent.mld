@@ -32,7 +32,7 @@
    Here we will work out a simple example. Our GUI will print a list of random
    integers between 1 and 10; if the user clicks on an integer, the list will be
    replaced by a new list, whose number of elements is precisely the integer
-   that was clicked. ({e Spoiler:} see the {!label-video} below!)
+   that was clicked. ({e Spoiler:} see the {!section-video} below!)
 
    {v
    -------                                           -------
