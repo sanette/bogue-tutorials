@@ -23,3 +23,11 @@ programs. (Replace `xxx` by the name of the tutorial.)
 Of course, the code can also be manually copy-pasted in an OCaml
 toplevel (REPL). See
 [instructions here](https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html).
+
+## WIP
+
+This is work in progress: more tutorials will be added when time
+permits.
+
+On the other hand, the existing tutorials are fairly stable. At least,
+they should work as expected.
