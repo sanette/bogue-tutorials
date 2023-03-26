@@ -1,11 +1,12 @@
-# "make all" is enough to browse the tutorials in $(DOCDIR) ("make view")
+# "make view" is enough to browse the tutorials in $(DOCDIR)
+# "make all" will also check the OCaml code (and fail on warnings)
 # use "make docs" to copy everything in the docs dir (like in the github repo)
 #
-SUBDIRS = common hello modif_parent
+SUBDIRS = common hello modif_parent counter
 DOCDIR = _build/default/_doc/_html/bogue-tutorials
 DUNE = opam exec -- dune
 
-all: images
+all: css
 	$(DUNE) build
 .PHONY: all
 
@@ -14,21 +15,21 @@ mld: $(SUBDIRS)
 .PHONY:	mld
 
 $(SUBDIRS):
-	$(MAKE) -C $@
+	$(MAKE) -C $@ mld
 
 images: $(DOCDIR)
-	$(MAKE) -C common images
-	$(MAKE) -C hello images
-	$(MAKE) -C modif_parent images
+	for dir in $(SUBDIRS); do \
+          $(MAKE) -C $$dir images; \
+        done
 .PHONY: images
 
 $(DOCDIR): mld
 	$(DUNE) build @doc # this removes images
 
 clean:
-	$(MAKE) -C common clean
-	$(MAKE) -C hello clean
-	$(MAKE) -C modif_parent clean
+	for dir in $(SUBDIRS); do \
+          $(MAKE) -C $$dir clean; \
+        done
 	$(DUNE) clean
 	rm -rf docs
 .PHONY: clean
@@ -39,10 +40,10 @@ view:	css
 
 css: images
 	chmod 644  $(DOCDIR)/../_odoc_support/odoc.css
-	echo ".sidenote{font-size:smaller;background:whitesmoke;" >> $(DOCDIR)/../_odoc_support/odoc.css
+	echo ".sidenote{font-size:smaller;background:var(--pre-border-color);padding:4px;}.sidenote::before{content:'︙';}" >> $(DOCDIR)/../_odoc_support/odoc.css
 .PHONY: css
 
 docs: css
 	rsync -av $(DOCDIR)/../ docs
-	cd docs; rm -rf odoc_support; mv _odoc_support odoc_support
+	cd docs; rm -rf odoc_support; mv _odoc_support odoc_support #Github pages does not like directories starting with "_"
 	find docs -name *.html -exec sed -i 's|_odoc_support|odoc_support|g' {} \;

@@ -792,4 +792,4 @@ td.def-doc *:first-child {
    ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
   ---------------------------------------------------------------------------*/
-.sidenote{font-size:smaller;background:whitesmoke;
+.sidenote{font-size:smaller;background:var(--pre-border-color);padding:4px;}.sidenote::before{content:'︙';}

@@ -1,0 +1,7 @@
+(executable
+ (name %%TUTO%%)
+ (public_name bogue-tutorials.%%TUTO%%)
+ (libraries bogue))
+
+(documentation
+(mld_files %%TUTO%%))

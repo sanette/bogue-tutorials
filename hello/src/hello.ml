@@ -2,9 +2,6 @@
 
 (**
 
-{%html:<style>.sidenote{font-size:smaller;background:whitesmoke;}</style>%}
-
-
    In this tutorial we will learn how to open a graphical window displaying a
    short text, like "Hello world". We then take advantage of this to familiarise
    with basic Bogue concepts.

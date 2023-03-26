@@ -1,4 +1,4 @@
-TUTO = hello
+TUTO = counter
 DUNE = opam exec -- dune
 
 all:	mld

@@ -88,7 +88,10 @@
    Then let's start:
 
    + {{!page-hello}Hello world}
-   + Counter TODO
+   + {{!page-counter}A simple counter}
    + {{!page-modif_parent}Self-modifying layouts}
    + More to come...
 *)
+(* +HIDE:begin *)
+(* DO NOT MODIFY THE LAST LINE ABOVE: "More to come...". See new_tuto.sh *)
+(* +HIDE:end *)

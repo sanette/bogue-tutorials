@@ -1,0 +1,7 @@
+(executable
+ (name counter)
+ (public_name bogue-tutorials.counter)
+ (libraries bogue))
+
+(documentation
+(mld_files counter))
