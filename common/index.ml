@@ -95,3 +95,9 @@
 (* +HIDE:begin *)
 (* DO NOT MODIFY THE LAST LINE ABOVE: "More to come...". See new_tuto.sh *)
 (* +HIDE:end *)
+
+(**
+   {1 Contribute, issues, etc.}
+
+   {{:https://github.com/sanette/bogue-tutorials}Github repository}
+*)
