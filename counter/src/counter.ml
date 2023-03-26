@@ -118,8 +118,8 @@ let _update_label c n =
    Finally, concerning user interaction, well, this is actually easy. The
    function
    {{:http://sanette.github.io/bogue/Bogue.Widget.html#VALbutton}Widget.button}
-   has an optional parameter [~action] which executes the function [action :
-   bool -> unit] each time the button is activated by the user.
+   has an optional parameter [~action] which executes the function
+   [action : bool -> unit] each time the button is activated by the user.
 
    Here is our complete GUI:
 
