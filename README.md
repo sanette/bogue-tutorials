@@ -24,6 +24,10 @@ Of course, the code can also be manually copy-pasted in an OCaml
 toplevel (REPL). See
 [instructions here](https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html).
 
+## List of available tutorials:
+
+[See here](https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html#ready?)
+
 ## WIP
 
 This is work in progress: more tutorials will be added when time
