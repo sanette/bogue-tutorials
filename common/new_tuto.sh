@@ -5,14 +5,20 @@
 
 if ! [[ -d common ]]
 then
-    echo "This command should be run from the root directory of the tutorials, like this:
-$ common/new_tuto.sh my_new_tuto"
+    >&2 echo "This command should be run from the root directory of the tutorials, like this:
+$ common/new_tuto.sh my_new_tuto \"Optional full title\""
     exit 1
 fi
 
-tuto=$1
+if [[ $# == 0 ]]
+then
+    >&2 echo "The (machine) name of the tutorial should be given on the command line."
+    exit 1
+else
+    tuto=$1
+fi
 
-if [[ $# == 2 ]]
+if [[ $# -ge 2 ]]
 then
     fullname="$2"
 else
@@ -21,10 +27,11 @@ fi
 
 if [[ -d "$tuto" ]]
 then
-    echo "Directory [$tuto] already exists. Aborting."
+    >&2 echo "Directory [$tuto] already exists. Aborting."
     exit 1
 fi
 
+echo "Creating tutorial [$tuto] with title [$fullname]."
 mkdir -p $tuto/src
 echo "TUTO = $tuto" > $tuto/Makefile
 cat common/Makefile.main >> $tuto/Makefile

@@ -201,6 +201,6 @@ let () =
 
    We now know enough Bogue to play with layouts full of text and image. But, of
    course, a crucial part of a GUI is missing: user interaction. This will be
-   the goal of the "counter" tutorial.
+   the goal of the {{!page-counter}"counter"} tutorial.
 
 *)

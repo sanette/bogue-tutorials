@@ -37,7 +37,7 @@
    Then, you can simply follow the chosen tutorial by pasting the code chunks
    into the toplevel.
 
-   Another option is to directly execute the tutorial. For this you have two
+   Another option is to execute the whole tutorial at once. For this you have two
    choices:
 
    {2 Option 2: Download the source}
@@ -93,7 +93,30 @@
 
 
 
-   {1 Contribute, issues, etc.}
+   {1 Contributing, issues, etc.}
 
-   {{:https://github.com/sanette/bogue-tutorials}Github repository}
+   See the {{:https://github.com/sanette/bogue-tutorials}Github repository}.
+
+   To create a new tutorial, download the source, [cd bogue-tutorials], and execute:
+
+   {@bash[
+   common/new_tuto.sh great_tutorial "My great tutorial"
+   ]}
+
+   where you should replace [great_tutorial] by the machine name of your
+   tutorial (it has to be different from all existing subdirectories), and
+   [My great tutorial] by the full title of your tutorial.
+
+   To preview your tutorial:
+
+   {@bash[
+   cd great_tutorial
+   make view
+   ]}
+
+   You may then offer a pull request!
+
+   {e Warning:} if you include images (which is a good idea!) make sure that
+   their names are specific enough, because eventually the images of all
+   tutorials will be copied into the same directory.
 
