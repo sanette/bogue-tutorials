@@ -1,11 +1,11 @@
-(lang dune 3.0)
+(lang dune 3.2)
 (name bogue-tutorials)
 (version "0.1.0")
 (generate_opam_files true)
 (source (github sanette/bogue-tutorials))
 (authors "San Vũ Ngọc")
 (maintainers "San Vũ Ngọc")
-(license CC-BY-NC-4.0_and_Apache-2.0)
+(license CC-BY-NC-4.0 Apache-2.0)
 (documentation https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html)
 (formatting disabled)
 
