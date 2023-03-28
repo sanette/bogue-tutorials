@@ -1,23 +1,23 @@
-ML_FILES = $(wildcard *.ml)
-MLD_TARGETS = $(ML_FILES:.ml=.mld)
-COMMON_DIR = .
+TUTO = index
 DUNE = opam exec -- dune
 
 all:	mld
 	$(DUNE) build @check
 .PHONY: all
 
-mld:	$(MLD_TARGETS)
+mld:	src
+	$(MAKE) -C src mld
 .PHONY: mld
 
-$(MLD_TARGETS): %.mld: %.ml
-	$(COMMON_DIR)/make_mld.sh $?
+clean:
+	$(MAKE) -C src clean
+.PHONY: clean
+
+view:
+	$(MAKE) -C .. all
+	sensible-browser ../_build/default/_doc/_html/bogue-tutorials/$(TUTO).html
+.PHONY: view
 
 images:
-	$(COMMON_DIR)/copy_images.sh bogue-tutorials $(ML_FILES)
+	$(MAKE) -C src images
 .PHONY: images
-
-clean:
-	rm -f $(MLD_TARGETS)
-	$(DUNE) clean
-.PHONY: clean
