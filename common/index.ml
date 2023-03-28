@@ -10,14 +10,15 @@
    your machine:
 
    {[
-     opam pin https://github.com/sanette/bogue-tutorials.git
+     opam install bogue-tutorials
    ]}
 
    This will ensure that the whole code is compatible with your
    {{:https://github.com/sanette/bogue}Bogue} install. In fact, if you didn't
    install Bogue beforehand, this will automatically install a compatible
-   version. You can also download the source and [opam install .]; you may
-   append the option [--deps-only] if you don't want to install the executables.
+   version. You can also download the source and [opam install .]; in both cases
+   you may append the option [--deps-only] if you don't want to install the
+   executables.
 
    {1 How to execute these tutorials}
 
@@ -101,7 +102,8 @@
 
    See the {{:https://github.com/sanette/bogue-tutorials}Github repository}.
 
-   To create a new tutorial, download the source, [cd bogue-tutorials], and execute:
+   To create a new tutorial, download the repository, [cd bogue-tutorials], and
+   execute:
 
    {@bash[
    common/new_tuto.sh great_tutorial "My great tutorial"
