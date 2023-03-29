@@ -90,7 +90,7 @@ let imake len : ilist =
     of the mutually recursive issue, we will add it later. 
 {[
 let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)
+  W.button (string_of_int i)
 ]}
 
 This is enough to create a list of widgets associated with our data: 
@@ -231,7 +231,7 @@ Now the only thing that the button should do, when clicked, is to send the
     once, using the [~action] parameter. 
 {[
 let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)
+  W.button (string_of_int i)
     ~action:(fun _ ->
         my_list := imake i;
         Update.push controller)
@@ -295,7 +295,7 @@ Notice how, for a change, we didn't manually add the [c] connection to the
 
 {[
 let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)
+  W.button (string_of_int i)
 
 let create_widgets il =
   List.map make_button il
@@ -382,7 +382,7 @@ let get_pressed_button () =
   b
 
 let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)
+  W.button (string_of_int i)
     ~action:(fun _ -> pressed_button := Some i)
 
 let create_widgets il =

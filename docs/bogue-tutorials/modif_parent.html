@@ -12,7 +12,7 @@ module W = Widget
 module L = Layout</code></pre><h2 id="non-gui-first"><a href="#non-gui-first" class="anchor"></a>Non-GUI first</h2><p>Most of the time, it is advisable to start by thinking about the non-GUI parts, as this is the core of the program.</p><p>For our goal, the program deals with lists of integers. Let us name a data type for this:</p><pre class="language-ocaml"><code>type ilist = int list</code></pre><p>Now, here is our data creating function. We need a function that creates a new random list of a given length.</p><pre class="language-ocaml"><code>let imake len : ilist =
   Array.init len (fun _ -&gt; Random.int 9 + 1)
   |&gt; Array.to_list</code></pre><h2 id="the-&quot;disconnected&quot;-gui-elements"><a href="#the-&quot;disconnected&quot;-gui-elements" class="anchor"></a>The &quot;disconnected&quot; GUI elements</h2><p>Let us now turn to the GUI elements. We need to create a Button widget for displaying a given integer. We don't define the button action here, because of the mutually recursive issue, we will add it later.</p><pre class="language-ocaml"><code>let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)</code></pre><p>This is enough to create a list of widgets associated with our data:</p><pre class="language-ocaml"><code>let create_widgets il =
+  W.button (string_of_int i)</code></pre><p>This is enough to create a list of widgets associated with our data:</p><pre class="language-ocaml"><code>let create_widgets il =
   List.map make_button il</code></pre><p>With this, we can already display our GUI! But it will do nothing when we click on it, because we didn't create any connection:</p><pre class="language-ocaml"><code>let () =
   Random.int 9 + 1
   |&gt; imake
@@ -35,7 +35,7 @@ module L = Layout</code></pre><h2 id="non-gui-first"><a href="#non-gui-first" cl
            |&gt; imake
            |&gt; update_layout layout in
   Bogue.run (Bogue.of_layout layout)</code></pre><p>You should see a window like this:</p><div class="figure"><img src="connected.png" srcset="connected.png 2x"></div><p>and clicking on the &quot;2&quot; button should replace the list by a 2-element list:</p><div class="figure"><img src="connected_2.png" srcset="connected_2.png 2x"></div><p>And the new buttons are again clickable to modify the list. Goal achieved!</p><h2 id="method-2:-use-update-events-to-get-rid-of-recursivity!"><a href="#method-2:-use-update-events-to-get-rid-of-recursivity!" class="anchor"></a>Method 2: use update events to get rid of recursivity!</h2><p>Mutually recursive functions can be hard to debug, especially if your program becomes large and the recursivity spreads over many functions.</p><p>In this case it is useful to think of the <em>update event</em> method. The button and its parent house share the data via a global variable, and, when clicked, the button just needs to ask its parent to update. (Of course, this programming style feels less &quot;functional&quot;.)</p><pre class="language-ocaml"><code>let my_list = ref []</code></pre><p>We need to create a widget that will receive the <code>update</code> event; let's call it <code>controller</code>. This <code>empty</code> widget just does the logic, it's not associated with any graphical element.</p><pre class="language-ocaml"><code>let controller = W.empty ~w:0 ~h:0 ()</code></pre><p>Now the only thing that the button should do, when clicked, is to send the update event to the controller, using <code>Update.push</code>. Since there is no recursivity, we can define the button <em>and</em> its behaviour when clicked at once, using the <code>~action</code> parameter.</p><pre class="language-ocaml"><code>let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)
+  W.button (string_of_int i)
     ~action:(fun _ -&gt;
         my_list := imake i;
         Update.push controller)
@@ -54,7 +54,7 @@ let update_layout layout =
   my_list := imake (Random.int 9 + 1);
   update_layout layout;
   Bogue.run (Bogue.of_layout ~connections:[c] layout)</code></pre><p>Notice how, for a change, we didn't manually add the <code>c</code> connection to the <code>controller</code> widget; instead we pass it to <code>Bogue.of_layout</code> which takes care of it. This is equivalent.</p><h2 id="method-3:-immediate-mode"><a href="#method-3:-immediate-mode" class="anchor"></a>Method 3: immediate mode</h2><p>You don't like connections and events? No problem, if the GUI is not too big, we can use the so-called &quot;immediate&quot; style.</p><p><b>Immediate vs. retained:</b> Internet if full of dubious posts about the difference between the so-called &quot;immediate mode&quot; and &quot;retained mode&quot;, and the adepts of the former claim that its detractors don't know what they are talking about. Admittedly, the Wikipedia pages for both are (as of 2023) of really bad quality. I don't want to enter this debate, so you can remove the word &quot;immediate&quot;, or replace it with &quot;synchronized&quot; or anything else if you prefer.</p><p>The rough idea of the &quot;immediate&quot; programming style is that, instead of considering a button (or other widgets) as an active component which sends a message or executes an action when pressed (which is the role of Bogue's connections), we view it as a passive component which holds a value, and whoever wants to use this value can just immediately take it and act with it. Since a widget then becomes a plain variable, it is much simpler to reason with. In pseudo-code:</p><pre class="language-ocaml"><code>if button.is_pressed then do_this </code></pre><p>The downside is that we don't know when the button state has been modified, so we need to poll it continuously. Hence we will implement this style by using the <code>before_display</code> option of <a href="http://sanette.github.io/bogue/Bogue.Main.html#VALrun"><code>Bogue.run</code></a>.</p><p>OK let's start. The creation of buttons cannot be simpler: same as in the &quot;disconnected&quot; section.</p><pre class="language-ocaml"><code>let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)
+  W.button (string_of_int i)
 
 let create_widgets il =
   List.map make_button il</code></pre><p>Layouting is also easy. Notice that the <code>update_layout</code> function is similar to the previous one from Method 2, but now we should not force synchronization (it will be automatic).</p><pre class="language-ocaml"><code>let update_layout layout il =
@@ -88,7 +88,7 @@ let get_pressed_button () =
   b
 
 let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)
+  W.button (string_of_int i)
     ~action:(fun _ -&gt; pressed_button := Some i)
 
 let create_widgets il =

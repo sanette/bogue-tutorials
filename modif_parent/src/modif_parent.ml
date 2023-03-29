@@ -94,7 +94,7 @@ let imake len : ilist =
     of the mutually recursive issue, we will add it later. *)
 (* +CODE:begin *)
 let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)
+  W.button (string_of_int i)
 (* +CODE:end *)
 
 (** This is enough to create a list of widgets associated with our data: *)
@@ -238,7 +238,7 @@ let controller = W.empty ~w:0 ~h:0 ()
     once, using the [~action] parameter. *)
 (* +CODE:begin *)
 let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)
+  W.button (string_of_int i)
     ~action:(fun _ ->
         my_list := imake i;
         Update.push controller)
@@ -302,7 +302,7 @@ let () =
 *)
 (* +CODE:begin *)
 let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)
+  W.button (string_of_int i)
 
 let create_widgets il =
   List.map make_button il
@@ -389,7 +389,7 @@ let get_pressed_button () =
   b
 
 let make_button i =
-  W.button ~kind:Button.Trigger (string_of_int i)
+  W.button (string_of_int i)
     ~action:(fun _ -> pressed_button := Some i)
 
 let create_widgets il =
