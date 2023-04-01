@@ -5,9 +5,9 @@
     font-size:smaller;
     background:var(--code-background);padding:4px;
 }
-.sidenote .collapse::before{content:'⏵⋯';}
+.sidenote .collapse::before{content:'▸⋯';}
 /* TODO rather 'onclick'... */
-.sidenote:hover .collapse::before{content:'⏷';}
+.sidenote:hover .collapse::before{content:'▾';}
 .sidenote .content{
     max-height: 0;
     overflow: hidden;
