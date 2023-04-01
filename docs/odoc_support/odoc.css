@@ -792,4 +792,21 @@ td.def-doc *:first-child {
    ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
   ---------------------------------------------------------------------------*/
-.sidenote{font-size:smaller;background:var(--code-background);padding:4px;}.sidenote::before{content:'︙';}
+.figure img {
+    max-width: 100%;
+}
+.sidenote{
+    font-size:smaller;
+    background:var(--code-background);padding:4px;
+}
+.sidenote .collapse::before{content:'⏵⋯';}
+/* TODO rather 'onclick'... */
+.sidenote:hover .collapse::before{content:'⏷';}
+.sidenote .content{
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.2s ease-out; /* does not work because of max-height: 100% */
+}
+.sidenote:hover .content{
+    max-height: 100%;
+}

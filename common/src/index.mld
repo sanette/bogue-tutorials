@@ -59,11 +59,11 @@
    make exe
    ]}
 
-   {%html:<div class="sidenote">%}
+   {%html:<div class="sidenote"><div class="collapse"></div><div class="content">%}
    A benefit for having downloaded the repo: you may access all
    tutorials locally, by opening the file [docs/bogue-tutorials/index.html] in a
    browser.
-   {%html:</div>%}
+   {%html:</div></div>%}
 
    {2 Option 3: Install the package}
 

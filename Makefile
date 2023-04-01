@@ -40,7 +40,7 @@ view:	css
 
 css: images
 	chmod 644  $(DOCDIR)/../_odoc_support/odoc.css
-	echo ".sidenote{font-size:smaller;background:var(--code-background);padding:4px;}.sidenote::before{content:'︙';}" >> $(DOCDIR)/../_odoc_support/odoc.css
+	cat common/misc.css >> $(DOCDIR)/../_odoc_support/odoc.css
 .PHONY: css
 
 docs: css

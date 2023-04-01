@@ -15,12 +15,12 @@
    widgets. Let's place them horizontally in a layout, using the function
    [Layout.flat_of_w].
 
-   {%html:<div class="sidenote">%}
+   {%html:<div class="sidenote"><div class="collapse"></div><div class="content">%}
    Remember that Bogue uses the "housing" metaphor. The function [flat_of_w]
    (for: "flat of widgets") constructs a flat house from a list of widgets. Each
    widget will be installed in a room, and the house (of type [Layout.t]) is
    built by placing the rooms next to each other.
-   {%html:</div>%}
+   {%html:</div></div>%}
 
    Ok, so let's try this.
 
@@ -42,12 +42,12 @@ let () =
 Notice how we aliased the [Widget] module by [W]. This saves space and time,
     and improves readability.
 
-    {%html:<div class="sidenote">%}
+    {%html:<div class="sidenote"><div class="collapse"></div><div class="content">%}
     We used two optional arguments to [flat_of_w]. The [~name] will be displayed
     as the window name by your window manager. The [~align] parameter ensures
     that the 3 widgets are vertically centered (the default would by to align
     them by their tops. Try removing this option to see the difference.)
-   {%html:</div>%}
+   {%html:</div></div>%}
 
     Here is what we get:
 
@@ -99,7 +99,7 @@ let update c n =
   W.set_text c (string_of_int n)
 ]}
 
-   {%html:<div class="sidenote">%} We have in mind that [update] will be called with arguments
+   {%html:<div class="sidenote"><div class="collapse"></div><div class="content">%} We have in mind that [update] will be called with arguments
    [count !x]. But it could be applied to any type of widget for which the
    function [W.set_text] makes sense. If we wanted to restrict to widgets of
    "label" type, we could have done:
@@ -110,7 +110,7 @@ let _update_label c n =
   Label.set (W.get_label c) (string_of_int n)
 ]}
 
-   {%html:</div>%}
+   {%html:</div></div>%}
 
    Finally, concerning user interaction, well, this is actually easy. The
    function

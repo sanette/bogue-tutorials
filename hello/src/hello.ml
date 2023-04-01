@@ -46,22 +46,39 @@ let () =
 
 (**
 
-Bogue uses the "housing" metaphor: a GUI is a big house with inhabitants living
-in various rooms, (and potentially communicating with each other).
+   In Bogue, there are mainly two types of objects: {b widgets} and {b
+   layouts}. Widgets are small graphics elements (buttons, images, etc.) and
+   they can be combined into a Layout. Roughly speaking:
 
-The inhabitants are the "widgets". The rooms are the "layouts". There are several kinds of widgets;  here we create only one widget, of [label] type:
+   - widget = content
+   - layout = container.
+
+   Here we create only one widget, of [label] type:
+
 {[
   let widget = Widget.label "Hello world" in
 ]}
-and we install it in a layout, as in single resident:
+
+   and we install it in a layout, as in single resident:
+
 {[
   let layout = Layout.resident widget in
 ]}
-Finally, this layout is the only "room" in our house, so we use it to create our "board" (which is our complete GUI):
+
+   Why is this function called "resident"? Well, if you browse
+   {{:http://sanette.github.io/bogue/Bogue.html}Bogue's API}, you will notice
+   that Bogue uses a "housing" metaphor: a GUI is a big house with inhabitants
+   (the widgets) living in various rooms (the layouts).
+
+   For this example, the layout we've just created is the only "room" in our
+   house, so we use it to create our "board" (which is our complete GUI):
+
 {[
   let board = Bogue.of_layout layout in
 ]}
+
 This board can be seen as our application, we run it using:
+
 {[
   Bogue.run board
 ]}
@@ -109,26 +126,21 @@ let () =
    our label.
 
    Can we fit several residents in a room? Well, not really. Strictly speaking,
-   a room can contain only one resident (widget). But, the trick is that a
-   layout can in fact contain several rooms. Thus, an element of type [Layout.t]
-   can either be:
+   a layout can contain only one widget. But, the trick is that, in Bogue, an
+   element of type [Layout.t] can also contain a list of layouts; in this case
+   we often call it a "house", since it contains a number of "rooms". Let's do
+   this.
 
-   - a true "{b room}" (containing a single resident), or
-   - a "{b house}" containing several rooms.
+   +SIDE:begin {b Side-note:} In a layout, rooms can be arbitrarily nested. We
+   have here the usual construction for a {e tree} data structure: each node is
+   either terminal (and called a leaf, which for us are widgets), or a vertex
+   (for us, a layout), pointing to a list of sub-nodes.
 
-   +SIDE:begin
-   {b Side-note:} we have here the usual construction for a {e tree} data
-   structure: each node is either terminal (and called a leaf, which for us are
-   widgets), or a vertex (for us, a layout), pointing to a list of sub-nodes.
-
-   To summarize, in Bogue, the complete GUI is simply a tree of layouts, and
-   the leaves contain a widget.
-
-   The trunk of the tree (our main house, if you wish), will correspond to
-   the layout associated with the window of the GUI. In Bogue we often call this
-   special layout the "top layout", or "top house". (Yes, this may sound weird:
-   our tree grows top-down...)
-   +SIDE:end
+   The trunk of the tree (our main house, if you wish), will correspond to the
+   layout associated with the window of the GUI. In Bogue we often call this
+   special layout the "top layout", or "top house". (Yes, our tree grows
+   top-down, like family trees.) See the "tree" tutorial for more details (not
+   ready yet!)  +SIDE:end
 
    So, we want to display an image below the label. Our label is a widget:
    {[
