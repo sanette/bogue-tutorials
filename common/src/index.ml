@@ -3,11 +3,12 @@
 
    +IMAGE:"bogue-icon.png" Welcome to the Bogue tutorials!
 
-   These tutorials can be simply read online, but of course it's better (and
-   more fun!) to execute the various code chunks by yourself. In fact, all
-   tutorials have been designed so that they can be entirely compiled and
-   executed. Hence, it's a good idea to install the [bogue-tutorials] package on
-   your machine:
+   These tutorials can be simply
+   {{:https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html}read
+   online}, but of course it's better (and more fun!) to execute the various
+   code chunks by yourself. In fact, all tutorials have been designed so that
+   they can be entirely compiled and executed. Hence, it's a good idea to
+   install the [bogue-tutorials] package on your machine:
 
    {[
      opam install bogue-tutorials
