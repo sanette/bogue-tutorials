@@ -149,11 +149,10 @@ Let us write a function that connects one button: [make_connection]. The
    {b Remarks:}
 
    + Notice that the connection has no target widget, hence we connect the
-   button to itself.
-   + This code easily extends to any kind of widget, but, since we dealing with
-   buttons, it is actually better to use the dedicated function:
-   [W.on_button_release], because it will also handle keyboard selection
-   (TAB+ENTER). Just write instead: 
+   button to itself.  + This code easily extends to any kind of widget, but,
+   since we are dealing with buttons, it is actually better to use the dedicated
+   function: [W.on_button_release], because it will also handle keyboard
+   selection (TAB+ENTER). Just write instead: 
 
 {[
 let rec make_connection layout button i =
@@ -431,7 +430,7 @@ let () =
    depends on your programming taste and the type of GUI you want to
    construct. Games and tools are very different in spirit. Method 1 is maybe
    more elegant from the viewpoint of functional programming, but tracking the
-   cycle of depencencies is often hard in real applications. Method 2 is
+   cycle of dependencies is often hard in real applications. Method 2 is
    probably the most flexible, the most "Bogue-esque", and adapts to virtually
    all kinds of situations. On the other hand, if you are not used to think in
    terms of interacting objects, and prefer the flow of a usual program, I

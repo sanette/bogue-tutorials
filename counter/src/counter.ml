@@ -136,4 +136,7 @@ let () =
   |> Bogue.run
 (* +CODE:end *)
 
-(** +IMAGE:"counter.webp" *)
+(** +IMAGE:"counter.webp"
+
+How cool is that! [;)]
+*)

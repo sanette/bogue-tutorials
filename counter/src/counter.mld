@@ -133,4 +133,7 @@ let () =
   |> Bogue.run
 ]}
 
-{%html:<div class="figure"><img src="counter.webp" srcset="counter.webp 2x"></div>%} 
+{%html:<div class="figure"><img src="counter.webp" srcset="counter.webp 2x"></div>%}
+
+How cool is that! [;)]
+
