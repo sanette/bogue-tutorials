@@ -18,8 +18,7 @@ depends: [
 ]
 build: [
   ["dune" "subst"] {dev}
-  [make "css"]
-  [make] {with-doc}
+  [make "mld"]
   [
     "dune"
     "build"
@@ -29,7 +28,9 @@ build: [
     jobs
     "@install"
     "@runtest" {with-test}
+    "@doc" {with-doc}
   ]
+  [make] {with-doc} 
 ]
 install: [
   [make "all"]
