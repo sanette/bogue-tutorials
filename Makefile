@@ -4,7 +4,7 @@
 #
 SUBDIRS = common hello modif_parent counter
 DOCDIR = _build/default/_doc/_html/bogue-tutorials
-DUNE = dune
+DUNE = opam exec -- dune
 
 all: css
 	$(DUNE) build

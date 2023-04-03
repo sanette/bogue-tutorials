@@ -39,7 +39,3 @@ jobs:
       - run: opam exec -- dune runtest
 
       - run: opam install .
-
-      - run: opam remove .
-
-      - run: opam install . --with-doc

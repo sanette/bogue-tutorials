@@ -29,7 +29,7 @@ build: [
     "@runtest" {with-test}
     "@doc" {with-doc}
   ]
-  [make "css"] {with-doc} 
+  [make] {with-doc} 
 ]
 install: [
   ["rsync" "-av" "%{build}%/_build/default/_doc/_html/" doc] {with-doc}
