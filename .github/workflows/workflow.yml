@@ -38,8 +38,6 @@ jobs:
 
       - run: opam exec -- dune runtest
 
-      - run: ls
-        
-      - run: make docs
+      - run: opam install .
 
-      - run: rsync -av docs/ $(opam var prefix)/doc/bogue_tutorials/
+      - run: opam install . --with-doc
