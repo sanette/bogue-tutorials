@@ -35,3 +35,7 @@ permits.
 
 On the other hand, the existing tutorials are fairly stable. At least,
 they should work as expected.
+
+## Contribute
+
+See [Contributing.md](Contributing.md).

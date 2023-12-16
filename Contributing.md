@@ -1,7 +1,5 @@
 # How to contribute?
 
-See [here](https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html#contributing,-issues,-etc.)
-
 ## Building
 
 In each tutorial `src` directory, `.mld` files are auto-generated. You
