@@ -28,7 +28,7 @@ We can copy this code in an OCaml toplevel and execute it; see
 
     {%html:<div class="figure"><img src="hello.png" srcset="hello.png 2x"></div>%}
 
-    So, how does this work? Let go through this again line by line.
+    So, how does this work? Let's go through this again line by line.
 
     First, instead of using the convenient [|>] operator, let's give names to
     the various steps; we have the following equivalent code:
@@ -168,7 +168,7 @@ let () =
 
    {%html:<div class="figure"><img src="hello-image.png" srcset="hello-image.png 2x"></div>%}
 
-   What exactly does this function [Layout.tower_of_w]? It takes a list of
+   What exactly does this function [Layout.tower_of_w] do? It takes a list of
    widgets, and for each one, installs it in a room, as a resident. Then it
    constructs a new layout by piling up the rooms vertically.
 

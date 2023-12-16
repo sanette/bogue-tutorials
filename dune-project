@@ -1,7 +1,7 @@
 (lang dune 3.2)
 (name bogue-tutorials)
 (version "0.2.0")
-;(generate_opam_files true)
+(generate_opam_files true)
 (source (github sanette/bogue-tutorials))
 (authors "San Vũ Ngọc")
 (maintainers "San Vũ Ngọc")

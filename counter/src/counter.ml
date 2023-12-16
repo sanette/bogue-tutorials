@@ -77,7 +77,7 @@ let x = ref 0
 let add_cookie () = incr x
 (* +CODE:end *)
 
-(** That's about if for the pure logic. Of course, in a real app we would do
+(** That's about it for the pure logic. Of course, in a real app we would do
     something with [x], for instance order the correct amount of chocolate
     chips. *)
 

@@ -1,0 +1,20 @@
+build: [
+  ["dune" "subst"] {dev}
+  [make "mld"]
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+  [make] {with-doc} 
+]
+install: [
+  ["rsync" "-av" "%{build}%/_build/default/_doc/_html/" doc] {with-doc}
+]
+

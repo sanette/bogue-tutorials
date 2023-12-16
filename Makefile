@@ -39,11 +39,12 @@ view:	css
 .PHONY: view
 
 css: images
-	chmod 644  $(DOCDIR)/../_odoc_support/odoc.css
-	cat common/misc.css >> $(DOCDIR)/../_odoc_support/odoc.css
+	chmod 644  $(DOCDIR)/../odoc.support/odoc.css
+	cat common/misc.css >> $(DOCDIR)/../odoc.support/odoc.css
 .PHONY: css
 
 docs: css
 	rsync -av $(DOCDIR)/../ docs
-	cd docs; rm -rf odoc_support; mv _odoc_support odoc_support #Github pages does not like directories starting with "_"
-	find docs -name *.html -exec sed -i 's|_odoc_support|odoc_support|g' {} \;
+	# this was necessary for older version of dune (< 3.12?) :
+	# cd docs; rm -rf odoc_support; mv _odoc_support odoc_support #Github pages does not like directories starting with "_"
+	# find docs -name *.html -exec sed -i 's|_odoc_support|odoc_support|g' {} \;

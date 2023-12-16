@@ -3,7 +3,7 @@
    {%html:<div class="figure"><img src="bogue-icon.png" srcset="bogue-icon.png 2x"></div>%} Welcome to the Bogue tutorials!
 
    These tutorials can be simply
-   {{:https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html}read
+   {{:https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html#ready?}read
    online}, but of course it's better (and more fun!) to execute the various
    code chunks by yourself. In fact, all tutorials have been designed so that
    they can be entirely compiled and executed. Hence, it's a good idea to
@@ -101,27 +101,4 @@
 
    See the {{:https://github.com/sanette/bogue-tutorials}Github repository}.
 
-   To create a new tutorial, download the repository, [cd bogue-tutorials], and
-   execute:
-
-   {@bash[
-   common/new_tuto.sh great_tutorial "My great tutorial"
-   ]}
-
-   where you should replace [great_tutorial] by the machine name of your
-   tutorial (it has to be different from all existing subdirectories), and
-   [My great tutorial] by the full title of your tutorial.
-
-   To preview your tutorial:
-
-   {@bash[
-   cd great_tutorial
-   make view
-   ]}
-
-   You may then offer a pull request!
-
-   {e Warning:} if you include images (which is a good idea!) make sure that
-   their names are specific enough, because eventually the images of all
-   tutorials will be copied into the same directory.
 

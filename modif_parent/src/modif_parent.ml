@@ -155,10 +155,12 @@ let () =
    {b Remarks:}
 
    + Notice that the connection has no target widget, hence we connect the
-   button to itself.  + This code easily extends to any kind of widget, but,
-   since we are dealing with buttons, it is actually better to use the dedicated
-   function: [W.on_button_release], because it will also handle keyboard
-   selection (TAB+ENTER). Just write instead: *)
+   button to itself.
+
+   + This code easily extends to any kind of widget, but, since we are dealing
+   with buttons, it is actually better to use the dedicated function:
+   [W.on_button_release], because it will also handle keyboard selection
+   (TAB+ENTER). Just write instead: *)
 
 (* +CODE:begin *)
 let rec make_connection layout button i =

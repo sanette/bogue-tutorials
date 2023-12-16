@@ -29,7 +29,7 @@ let () =
 
     +IMAGE:"hello.png"
 
-    So, how does this work? Let go through this again line by line.
+    So, how does this work? Let's go through this again line by line.
 
     First, instead of using the convenient [|>] operator, let's give names to
     the various steps; we have the following equivalent code:
@@ -172,7 +172,7 @@ let () =
 
    +IMAGE:"hello-image.png"
 
-   What exactly does this function [Layout.tower_of_w]? It takes a list of
+   What exactly does this function [Layout.tower_of_w] do? It takes a list of
    widgets, and for each one, installs it in a room, as a resident. Then it
    constructs a new layout by piling up the rooms vertically.
 
