@@ -6,7 +6,7 @@ description: "Several tutorials for learning how to create GUIs with Bogue"
 maintainer: ["San Vũ Ngọc"]
 authors: ["San Vũ Ngọc"]
 license: ["CC-BY-NC-4.0" "Apache-2.0"]
-tags: ["bogue" "tutorial"]
+tags: ["gui" "bogue" "tutorial"]
 homepage: "https://github.com/sanette/bogue-tutorials"
 doc: "https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html"
 bug-reports: "https://github.com/sanette/bogue-tutorials/issues"

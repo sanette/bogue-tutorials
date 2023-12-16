@@ -18,4 +18,4 @@
    dune
   (bogue (>= 20221112)))
  (tags
-  (bogue tutorial)))
+  (gui bogue tutorial)))
