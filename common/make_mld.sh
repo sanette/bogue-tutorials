@@ -41,6 +41,4 @@ sed -i -z "s|(\*\*[^/]||g" $mld
 sed -i "s|*)||g" $mld
 
 # https://github.com/ocaml/odoc/issues/998
-# I would like to have something like this below, but it is actually
-# rendered, not ignored:
-# sed -i '1s|^|(*** auto-generated file *)\n|' $mld
+sed -i '1s|^|{%html: <!-- auto-generated file --> %}\n|' $mld
