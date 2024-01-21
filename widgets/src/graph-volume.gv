@@ -1,0 +1,6 @@
+digraph simple {
+node [fontsize=20];
+node [fontname="Ubuntu"];
+"Volume Slider" -> "Volume Text_input" [label="c1"];
+"Volume Text_input" -> "Volume Slider" [label="c2"];
+}

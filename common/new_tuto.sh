@@ -48,12 +48,12 @@ else
     echo "Warning: $tuto was already present in Makefile."
 fi
 
-if [[ "A"$(grep "!page-$tuto" common/index.ml) == "A" ]]
+if [[ "A"$(grep "!page-$tuto" common/src/index.ml) == "A" ]]
 then
     echo "Updating index."
-    sed -i "s|+ More to come...|+ {{!page-$tuto}$fullname}\n   + More to come...|g" common/index.ml
+    sed -i "s|+ More to come...|+ {{!page-$tuto}$fullname}\n   + More to come...|g" common/src/index.ml
 else
-    echo "Warning: {!page-$tuto} was already mentioned in common/index.ml"
+    echo "Warning: {!page-$tuto} was already mentioned in common/src/index.ml"
 fi
 
 echo "Done. Now edit [$tuto/src/$tuto.ml]!"

@@ -93,6 +93,8 @@
 
    + {{!page-hello}Hello world}
    + {{!page-counter}A simple counter}
+   + {{!page-layouts}Layouts : a tree structure}
+   + {{!page-widgets}Widgets and connections : a graph structure}
    + {{!page-modif_parent}Self-modifying layouts}
    + More to come...
 *)

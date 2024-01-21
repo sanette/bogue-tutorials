@@ -1,0 +1,6 @@
+digraph simple {
+node [fontsize=20];
+node [fontname="Ubuntu"];
+"Play Button" -> "Play Button";
+"Volume Slider" -> "Volume Label";
+}

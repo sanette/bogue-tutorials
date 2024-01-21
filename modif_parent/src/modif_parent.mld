@@ -8,7 +8,8 @@
    For instance, a {e Text input} widget can connect to a {e Search engine}
    widget, in order to send it what the user typed at each key press, and in
    turn the {e Search engine} is connected to the {e Display} widget to tell it
-   to print the results when they arrive.
+   to print the results when they arrive. (See the {{!page-widgets}Widgets}
+   tutorial.)
 
    Things become more involved when the action triggered by the widget wants to
    modify a Layout to which the widget itself belongs... There are two potential

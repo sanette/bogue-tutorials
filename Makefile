@@ -2,7 +2,7 @@
 # "make all" will also check the OCaml code (and fail on warnings)
 # use "make docs" to copy everything in the docs dir (like in the github repo)
 #
-SUBDIRS = common hello modif_parent counter
+SUBDIRS = common hello modif_parent counter layouts widgets
 DOCDIR = _build/default/_doc/_html/bogue-tutorials
 DUNE = opam exec -- dune
 

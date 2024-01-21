@@ -1,0 +1,7 @@
+(executable
+ (name layouts)
+ (public_name bogue-tutorials.layouts)
+ (libraries bogue))
+
+(documentation
+(mld_files layouts))

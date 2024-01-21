@@ -16,6 +16,8 @@
 # (* +CODE:begin *) and (* +CODE:end *) are replaced
 # by '{[' and ']}' respectively, which embeds the code in the
 # documentation.
+# Warning: code parts should not contain the strings '(**' and '*)'!
+# Hence no comments!
 #
 # 2. Hiding parts.
 # Anything between (* +HIDE:begin *) and (* +HIDE:end *) is removed.

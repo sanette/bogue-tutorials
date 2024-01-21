@@ -1,0 +1,7 @@
+(executable
+ (name widgets)
+ (public_name bogue-tutorials.widgets)
+ (libraries bogue))
+
+(documentation
+(mld_files widgets))
