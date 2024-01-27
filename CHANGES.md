@@ -1,5 +1,10 @@
 # in preparation
 
+2 new tutorials:
+
+Layouts: a tree structure
+Widgets and connections: a graph structure
+
 Hide side-notes by default
 Automatize creation of new tutorials (common/new_tuto.sh)
 
