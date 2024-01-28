@@ -398,7 +398,7 @@ let make_connections player ws =
 
 (** {2 The game}
 
-That's it! We can run the game! *)
+That's it. We can run the game! *)
 
 (* +CODE:begin *)
 let main n =
