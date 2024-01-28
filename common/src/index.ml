@@ -15,7 +15,8 @@
    ]}
 
    This will not only download the tutorials (you can then view them locally
-   with [firefox $(opam var bogue-tutorials:doc)/index.html]), but also ensure
+   with [firefox $(opam var
+   bogue-tutorials:build)/docs/bogue-tutorials/index.html]), but also ensure
    that the whole code is compatible with your
    {{:https://github.com/sanette/bogue}Bogue} install. In fact, if you didn't
    install Bogue beforehand, this will automatically install a compatible
