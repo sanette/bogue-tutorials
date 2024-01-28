@@ -272,7 +272,7 @@ let make_widgets n =
   Array.init n (fun _ -> make_row n)
 (* +CODE:end *)
 
-(** The [make_widgets] function will initialize a array of empty squares. But
+(** The [make_widgets] function will initialize a array of empty squares. But we
     don't have any graphics yet, because we didn't define any layout. Let's do
     this now. Each Box will belong to a layout, and then we group the layouts
     into a square board. To make it more fancy, let us alternate the background
@@ -312,8 +312,8 @@ let () = show_board 8;;
     +IMAGE:"checkerboard.png" Nice, isn't it? An 8 x 8 checkerboard, where each
     square is a widget.
 
-    Let's code the logic now. Obviously, we need a function that tell us in
-    which state a Box is. In a more complicated game I woudl recommend having a
+    Let's code the logic now. Obviously, we need a function that tells us in
+    which state a Box is. In a more complicated game I would recommend having a
     separate [state array], but here it is enough to check the Box's style.
 *)
 

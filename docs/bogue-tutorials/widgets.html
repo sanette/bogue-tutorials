@@ -62,7 +62,7 @@ let make_style = function
 let make_widgets n =
   let make_row n =
     Array.init n (fun _ -&gt;  W.box ~w ~h ~style:(make_style Empty) ()) in
-  Array.init n (fun _ -&gt; make_row n)</code></pre><p>The <code>make_widgets</code> function will initialize a array of empty squares. But don't have any graphics yet, because we didn't define any layout. Let's do this now. Each Box will belong to a layout, and then we group the layouts into a square board. To make it more fancy, let us alternate the background color of the small layout in order to obtain a nice checkerboard.</p><pre class="language-ocaml"><code>let dark = Style.(of_bg (opaque_bg Draw.(find_color &quot;saddlebrown&quot;)))
+  Array.init n (fun _ -&gt; make_row n)</code></pre><p>The <code>make_widgets</code> function will initialize a array of empty squares. But we don't have any graphics yet, because we didn't define any layout. Let's do this now. Each Box will belong to a layout, and then we group the layouts into a square board. To make it more fancy, let us alternate the background color of the small layout in order to obtain a nice checkerboard.</p><pre class="language-ocaml"><code>let dark = Style.(of_bg (opaque_bg Draw.(find_color &quot;saddlebrown&quot;)))
 let light = Style.(of_bg (opaque_bg Draw.(find_color &quot;bisque&quot;)))
 
 let make_layout ws =
@@ -79,7 +79,7 @@ let make_layout ws =
   let ws = make_widgets n in
   Bogue.(run (of_layout (make_layout ws)))
 
-let () = show_board 8;;</code></pre><p>Here is what this gives:</p><p><div class="figure"><img src="checkerboard.png" srcset="checkerboard.png 2x"></div> Nice, isn't it? An 8 x 8 checkerboard, where each square is a widget.</p><p>Let's code the logic now. Obviously, we need a function that tell us in which state a Box is. In a more complicated game I woudl recommend having a separate <code>state array</code>, but here it is enough to check the Box's style.</p><pre class="language-ocaml"><code>let get_state box =
+let () = show_board 8;;</code></pre><p>Here is what this gives:</p><p><div class="figure"><img src="checkerboard.png" srcset="checkerboard.png 2x"></div> Nice, isn't it? An 8 x 8 checkerboard, where each square is a widget.</p><p>Let's code the logic now. Obviously, we need a function that tells us in which state a Box is. In a more complicated game I would recommend having a separate <code>state array</code>, but here it is enough to check the Box's style.</p><pre class="language-ocaml"><code>let get_state box =
   let s = Box.get_style (W.get_box box) in
   if s = Style.empty then Empty
   else if s = black then Black
