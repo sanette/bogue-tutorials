@@ -237,6 +237,8 @@ let () =
 
    +IMAGE:"reversi.jpg"
 
+   {2 Connection graph}
+
    Can we code the whole game using connections? Yes, indeed: each square is a
    widget, and we connect it with the 4 neighboring squares: left, up, right,
    down, in order to check whether we need to flip a coin. We also connect it
@@ -245,6 +247,8 @@ let () =
 
    +IMAGE:"checkers-4.png"
    The connection graph for a 4 x 4 board.
+
+   {2 Box Widgets}
 
    Let's code this! We will use a simple Box widget for each square. We need 3
    different states: empty, black, white. In order to draw a colored disc (the
@@ -272,7 +276,11 @@ let make_widgets n =
   Array.init n (fun _ -> make_row n)
 (* +CODE:end *)
 
-(** The [make_widgets] function will initialize a array of empty squares. But we
+(**
+
+{2 The checkerboard layout}
+
+The [make_widgets] function will initialize a array of empty squares. But we
     don't have any graphics yet, because we didn't define any layout. Let's do
     this now. Each Box will belong to a layout, and then we group the layouts
     into a square board. To make it more fancy, let us alternate the background
@@ -311,6 +319,8 @@ let () = show_board 8;;
 
     +IMAGE:"checkerboard.png" Nice, isn't it? An 8 x 8 checkerboard, where each
     square is a widget.
+
+{2 Connections}
 
     Let's code the logic now. Obviously, we need a function that tells us in
     which state a Box is. In a more complicated game I would recommend having a
@@ -386,7 +396,9 @@ let make_connections player ws =
   !list
 (* +CODE:end *)
 
-(** That's it! We can run the game! *)
+(** {2 The game}
+
+That's it! We can run the game! *)
 
 (* +CODE:begin *)
 let main n =
