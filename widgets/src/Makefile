@@ -13,7 +13,7 @@ mld:	$(MLD_TARGETS)
 $(MLD_TARGETS): %.mld: %.ml
 	$(COMMON_DIR)/make_mld.sh $?
 
-images: graph.png graph-volume.png
+images: graph.png graph-volume.png checkers-4.png
 	$(COMMON_DIR)/copy_images.sh bogue-tutorials $(ML_FILES)
 .PHONY: images
 
@@ -22,6 +22,9 @@ graph.png: graph.gv
 
 graph-volume.png: graph-volume.gv
 	dot -Tpng graph-volume.gv > graph-volume.png
+
+checkers-4.png: checkers-4.gv
+	neato -Tpng checkers-4.gv > checkers-4.png
 
 clean:
 	rm -f $(MLD_TARGETS)

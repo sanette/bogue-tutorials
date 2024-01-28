@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>widgets (bogue-tutorials.widgets)</title><meta charset="utf-8"/><link rel="stylesheet" href="../odoc.support/odoc.css"/><meta name="generator" content="odoc 2.4.0"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../odoc.support/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">bogue-tutorials</a> &#x00BB; widgets</nav><header class="odoc-preamble"> <!-- auto-generated file --> <h1 id="bogue-tutorial-—-widgets-and-connections-:-a-graph-structure."><a href="#bogue-tutorial-—-widgets-and-connections-:-a-graph-structure." class="anchor"></a>Bogue-tutorial — Widgets and connections : a graph structure.</h1><p>In this tutorial, we will learn what <em>connections</em> are for Bogue, why they are needed for user interaction, and how to construct them.</p></header><nav class="odoc-toc"><ul><li><a href="#widgets-and-actions">Widgets and actions</a></li><li><a href="#the-widget-graph">The widget graph</a></li><li><a href="#why-connections?">Why connections?</a></li><li><a href="#creating-connections">Creating connections</a><ul><li><a href="#triggers">Triggers</a></li><li><a href="#action">Action</a></li><li><a href="#the-connected-volume-slider-(one-way)">The connected Volume slider (one way)</a></li><li><a href="#the-two-way-connected-volume-slider">The two-way connected Volume slider</a></li></ul></li><li><a href="#summary">Summary</a></li></ul></nav><div class="odoc-content"><h2 id="widgets-and-actions"><a href="#widgets-and-actions" class="anchor"></a>Widgets and actions</h2><p>The role of a GUI is to perform specific actions in response to user interaction. For instance, play a music when the user press the &quot;Play&quot; button. In order to do this, our Bogue app must wait until it detects a mouse click at the right place, and then run the action.</p><p>In Bogue, user interaction is done at the level of <b>Widgets</b>. For instance, one can use a Button widget to perform that task, namely using <a href="http://sanette.github.io/bogue/Bogue.Widget.html#VALbutton"><code>Widget.button</code></a> with the <code>~action</code> parameter.</p><pre class="language-ocaml"><code>open Bogue
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>widgets (bogue-tutorials.widgets)</title><meta charset="utf-8"/><link rel="stylesheet" href="../odoc.support/odoc.css"/><meta name="generator" content="odoc 2.4.1"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../odoc.support/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="index.html">Up</a> – <a href="index.html">bogue-tutorials</a> &#x00BB; widgets</nav><header class="odoc-preamble"> <!-- auto-generated file --> <h1 id="bogue-tutorial-—-widgets-and-connections-:-a-graph-structure."><a href="#bogue-tutorial-—-widgets-and-connections-:-a-graph-structure." class="anchor"></a>Bogue-tutorial — Widgets and connections : a graph structure.</h1><p>In this tutorial, we will learn what <em>connections</em> are for Bogue, why they are needed for user interaction, and how to construct them. We will finish by coding a <em>complete game</em>, in the Reversi-Othello style.</p></header><nav class="odoc-toc"><ul><li><a href="#widgets-and-actions">Widgets and actions</a></li><li><a href="#the-widget-graph">The widget graph</a></li><li><a href="#why-connections?">Why connections?</a></li><li><a href="#creating-connections">Creating connections</a><ul><li><a href="#triggers">Triggers</a></li><li><a href="#action">Action</a></li><li><a href="#the-connected-volume-slider-(one-way)">The connected Volume slider (one way)</a></li><li><a href="#the-two-way-connected-volume-slider">The two-way connected Volume slider</a></li></ul></li><li><a href="#a-checker-game-with-many-connections">A checker game with many connections</a></li><li><a href="#summary">Summary</a></li></ul></nav><div class="odoc-content"><h2 id="widgets-and-actions"><a href="#widgets-and-actions" class="anchor"></a>Widgets and actions</h2><p>The role of a GUI is to perform specific actions in response to user interaction. For instance, play a music when the user press the &quot;Play&quot; button. In order to do this, our Bogue app must wait until it detects a mouse click at the right place, and then run the action.</p><p>In Bogue, user interaction is done at the level of <b>Widgets</b>. For instance, one can use a Button widget to perform that task, namely using <a href="http://sanette.github.io/bogue/Bogue.Widget.html#VALbutton"><code>Widget.button</code></a> with the <code>~action</code> parameter.</p><pre class="language-ocaml"><code>open Bogue
 module W = Widget
 module L = Layout
 
@@ -11,7 +11,7 @@ let () =
   let label = W.label &quot;Volume:&quot; in
   let vol = W.label &quot;0    &quot; in
   let slider = W.slider_with_action ~action:(fun v -&gt;
-                   W.set_text vol (string_of_int v)) ~value:0 100 in
+      W.set_text vol (string_of_int v)) ~value:0 100 in
   L.flat ~align:Draw.Center
     [L.resident ~background:L.theme_bg slider;
      L.flat_of_w [label; vol]]
@@ -44,4 +44,87 @@ let update_slider src dst _ev =
   L.flat ~align [L.resident ~background:L.theme_bg slider;
                  L.flat_of_w ~align  [label; input]]
   |&gt; Bogue.of_layout ~connections:[c1; c2]
-  |&gt; Bogue.run</code></pre><div class="figure"><img src="digraph-slider.webp" srcset="digraph-slider.webp 2x"></div><p>Impressive, isn't it? 😉</p><h2 id="summary"><a href="#summary" class="anchor"></a>Summary</h2><p>Except in very simple cases, where shorthands using callbacks like <code>slider_with_action</code> may suffice, when designing a GUI one should always start by thinking about the <em>connection graph</em>. This is a way to represent how widgets talk to each other upon user interaction. The widget graph can have any topology (including cycles), and is essentially independent from the &quot;Layout tree&quot; described in the <a href="layouts.html" title="layouts">Layouts</a> tutorial.</p></div></body></html>
+  |&gt; Bogue.run</code></pre><div class="figure"><img src="digraph-slider.webp" srcset="digraph-slider.webp 2x"></div><p>Impressive, isn't it? 😉</p><h2 id="a-checker-game-with-many-connections"><a href="#a-checker-game-with-many-connections" class="anchor"></a>A checker game with many connections</h2><p>Let's push the connection logic further. Imagine a checker game with the following rules. Coins have a black face and a white face (like in the Reversi/Othello game). Each player in turn place their color in any available square on the board. Then any coin positioned immediately on the left, right, top or bottom of that coin must be flipped to change its color. When the board is full, the player with more coins of their color on the board wins.</p><div class="figure"><img src="reversi.jpg" srcset="reversi.jpg 2x"></div><p>Can we code the whole game using connections? Yes, indeed: each square is a widget, and we connect it with the 4 neighboring squares: left, up, right, down, in order to check whether we need to flip a coin. We also connect it with itself, to change its status from empty to black or white, when the user clicks on it. That's it!</p><p><div class="figure"><img src="checkers-4.png" srcset="checkers-4.png 2x"></div> The connection graph for a 4 x 4 board.</p><p>Let's code this! We will use a simple Box widget for each square. We need 3 different states: empty, black, white. In order to draw a colored disc (the coin), a simple rounded background with radius <code>w/2</code> will do the trick.</p><pre class="language-ocaml"><code>type state = Empty | Black | White
+
+let w = 30
+let h = 30
+
+let black = Style.(of_bg (opaque_bg Draw.black)
+                   |&gt; with_border (mk_border ~radius:(w/2) (mk_line ())))
+let white = Style.(of_bg (opaque_bg Draw.white)
+                   |&gt; with_border (mk_border ~radius:(w/2) (mk_line ())))
+
+let make_style = function
+  | Empty -&gt; Style.empty
+  | White -&gt; white
+  | Black -&gt; black
+
+let make_widgets n =
+  let make_row n =
+    Array.init n (fun _ -&gt;  W.box ~w ~h ~style:(make_style Empty) ()) in
+  Array.init n (fun _ -&gt; make_row n)</code></pre><p>The <code>make_widgets</code> function will initialize a array of empty squares. But don't have any graphics yet, because we didn't define any layout. Let's do this now. Each Box will belong to a layout, and then we group the layouts into a square board. To make it more fancy, let us alternate the background color of the small layout in order to obtain a nice checkerboard.</p><pre class="language-ocaml"><code>let dark = Style.(of_bg (opaque_bg Draw.(find_color &quot;saddlebrown&quot;)))
+let light = Style.(of_bg (opaque_bg Draw.(find_color &quot;bisque&quot;)))
+
+let make_layout ws =
+  ws
+  |&gt; Array.mapi (fun i row -&gt;
+      row
+      |&gt; Array.mapi (fun j box -&gt;
+          let background = if (i+j) mod 2 = 0 then L.style_bg light
+            else L.style_bg dark in
+          L.resident ~background box))
+  |&gt; Array.to_list
+  |&gt; List.map (fun row -&gt; L.flat ~margins:0 (Array.to_list row))
+  |&gt; L.tower ~margins:0</code></pre><p>Of course our code is not finished, we didn't add any logic yet, but clearly we can't resist displaying what we have so far! It's just a matter of a few lines:</p><pre class="language-ocaml"><code>let show_board n =
+  let ws = make_widgets n in
+  Bogue.(run (of_layout (make_layout ws)))
+
+let () = show_board 8;;</code></pre><p>Here is what this gives:</p><p><div class="figure"><img src="checkerboard.png" srcset="checkerboard.png 2x"></div> Nice, isn't it? An 8 x 8 checkerboard, where each square is a widget.</p><p>Let's code the logic now. Obviously, we need a function that tell us in which state a Box is. In a more complicated game I woudl recommend having a separate <code>state array</code>, but here it is enough to check the Box's style.</p><pre class="language-ocaml"><code>let get_state box =
+  let s = Box.get_style (W.get_box box) in
+  if s = Style.empty then Empty
+  else if s = black then Black
+  else if s = white then White
+  else failwith &quot;Unrecognized box style&quot;</code></pre><p>Now, connections. The connection between a square and one of its neighbors can be activated only if the source square <code>b1</code> is empty, and it consists in checking whether the target square <code>b2</code> is occupied, and then flip that coin.</p><pre class="language-ocaml"><code>let flip_neighbor b1 b2 _ =
+  if get_state b1 = Empty then
+    match get_state b2 with
+    | White -&gt; Box.set_style (W.get_box b2) black
+    | Black -&gt; Box.set_style (W.get_box b2) white
+    | _ -&gt; ()
+
+let connect_neighbor b1 b2 list =
+  let c = W.connect_main b1 b2 flip_neighbor Trigger.buttons_down in
+  list := c :: !list</code></pre><p>Next, we connect the square with itself: we put the coin on the square and take turn.</p><pre class="language-ocaml"><code>let next player = match !player with
+  | Empty -&gt; raise (invalid_arg &quot;next player&quot;)
+  | White -&gt; player := Black
+  | Black -&gt; player := White
+
+let add_coin player b _ _ =
+  if get_state b = Empty then
+    let style = if !player = Black then black else white in
+    Box.set_style (W.get_box b) style;
+    next player
+
+let connect_self player b list =
+  let c = W.connect_main b b (add_coin player) Trigger.buttons_down in
+  list := c :: !list</code></pre><p>Finally, we group all the necessary connections <b>in the correct order</b>. (Indeed, if you look carefully you will see that we must flip the neighbors <em>before</em> placing our coin on the square.) Note also that the following function constructs the <code>list</code> in reverse order.</p><pre class="language-ocaml"><code>let make_connections player ws =
+  let list = ref [] in
+  let n = Array.length ws in
+  for i = 0 to n-1 do
+    for j = 0 to n-1 do
+      connect_self player ws.(i).(j) list;
+      let add ii jj = connect_neighbor ws.(i).(j) ws.(ii).(jj) list in
+      if i &gt; 0 then add (i-1) j;
+      if j &gt; 0 then add i (j-1);
+      if i &lt; n-1 then add (i+1) j;
+      if j &lt; n-1 then add i (j+1);
+    done
+  done;
+  !list</code></pre><p>That's it! We can run the game!</p><pre class="language-ocaml"><code>let main n =
+  let player = ref (if Random.bool () then Black else White) in
+  let ws = make_widgets n in
+  let cs = make_connections player ws in
+  make_layout ws
+  |&gt; Bogue.of_layout ~connections:cs
+  |&gt; Bogue.run
+
+let () = main 8;;</code></pre><div class="figure"><img src="reversi.webp" srcset="reversi.webp 2x"></div><p>Have fun! I didn't think about the strategy to win, did you?</p><p><div class="sidenote"><div class="collapse"></div><div class="content"> I have no idea if this game already exists! It wouldn't be surprising. Let me know! In the meantime I propose to call it <b>Sorc</b>, because it's &quot;cros&quot; (like the cross of coins we flip) in the <em>reverse</em> order... 😉 </div></div></p><p>I leave it to you to make it more polished: add a score line, show whose turn it is, etc.</p><h2 id="summary"><a href="#summary" class="anchor"></a>Summary</h2><p>Except in very simple cases, where short-hands using callbacks like <code>slider_with_action</code> may suffice, when designing a GUI one should always start by thinking about the <em>connection graph</em>. This is a way to represent how widgets talk to each other upon user interaction. The widget graph can have any topology (including cycles), and is essentially independent from the &quot;Layout tree&quot; described in the <a href="layouts.html" title="layouts">Layouts</a> tutorial.</p></div></body></html>
