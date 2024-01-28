@@ -322,6 +322,9 @@ let () = show_board 8;;
 
 {2 Connections}
 
+    +SIDE:begin {b Warning:} The code we're showing here requires Bogue >=
+    20240127 +SIDE:end
+
     Let's code the logic now. Obviously, we need a function that tells us in
     which state a Box is. In a more complicated game I would recommend having a
     separate [state array], but here it is enough to check the Box's style.
@@ -422,7 +425,7 @@ let () = main 8;;
     order...  😉 +SIDE:end
 
     I leave it to you to make it more polished: add a score line, show whose
-    turn it is, etc.
+    turn it is, add animations, etc.
 
 *)
 

@@ -318,6 +318,9 @@ Here is what this gives:
 
 {2 Connections}
 
+    {%html:<div class="sidenote"><div class="collapse"></div><div class="content">%} {b Warning:} The code we're showing here requires Bogue >=
+    20240127 {%html:</div></div>%}
+
     Let's code the logic now. Obviously, we need a function that tells us in
     which state a Box is. In a more complicated game I would recommend having a
     separate [state array], but here it is enough to check the Box's style.
@@ -418,7 +421,7 @@ let () = main 8;;
     order...  😉 {%html:</div></div>%}
 
     I leave it to you to make it more polished: add a score line, show whose
-    turn it is, etc.
+    turn it is, add animations, etc.
 
 
 
