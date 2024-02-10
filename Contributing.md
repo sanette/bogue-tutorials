@@ -50,13 +50,15 @@ The text of the tutorial is written in a "simple" `.ml` file, with
 some special syntax. The easier is really to look at one of the
 existing tutos, but here are the various constructs you may use:
 
-+ *Standard text* must be written in _comments_ of the form `(** My
++ **Standard text** must be written in _comments_ of the form `(** My
   nice explanation **)`. Note the double stars for opening _and_
-  closing comments.
-+ *Images* can be easily included using `+IMAGE:"myimage.png"`
-+ *Side notes* (folded by default in the final html document) (written
-	in standard text) are surrounded by ``+SIDE:begin` and `+SIDE:end`.
-+ *Code* that will be compiled (and can be executed with `make exe`)
+  closing comments. Inside such a standard text environment, you may
+  use any of `ocamldoc/odoc` syntax (emphasis, sections, links, etc.).
++ **Images** can be easily included using `+IMAGE:"myimage.png"`
++ **Side notes** (folded by default in the final html document) are
+	surrounded by `+SIDE:begin` and `+SIDE:end`. (Side note are
+	written in a standard text environment.)
++ **Code** that will be compiled (and can be executed with `make exe`)
   should be written _outside_ comments, and surrounded by
   `(* +CODE:begin *)` and `(* +CODE:end *)`:
   ```ocaml
