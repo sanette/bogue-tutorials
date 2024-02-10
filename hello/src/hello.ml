@@ -1,4 +1,5 @@
-(** {0 Bogue tutorial — Hello world.} *)
+(** {0 Bogue tutorial — Hello world.}
+ **)
 
 (**
 
@@ -9,8 +10,8 @@
 {1 Hello world}
 
    Let's start right ahead with the "minimal code" mentionned in Bogue's
-   {{:http://sanette.github.io/bogue/Principles.html}documentation}:
-*)
+   {{:https://sanette.github.io/bogue/Principles.html}documentation}:
+**)
 
 (* +CODE:begin *)
 open Bogue
@@ -34,7 +35,7 @@ let () =
     First, instead of using the convenient [|>] operator, let's give names to
     the various steps; we have the following equivalent code:
 
-*)
+**)
 
 (* +CODE:begin *)
 let () =
@@ -66,7 +67,7 @@ let () =
 ]}
 
    Why is this function called "resident"? Well, if you browse
-   {{:http://sanette.github.io/bogue/Bogue.html}Bogue's API}, you will notice
+   {{:https://sanette.github.io/bogue/Bogue.html}Bogue's API}, you will notice
    that Bogue uses a "housing" metaphor: a GUI is a big house with inhabitants
    (the widgets) living in various rooms (the layouts).
 
@@ -106,7 +107,7 @@ Simple, isn't it?
    We spot the optional parameters [?w] and [?h] which should set the desired
    widht and height of our layout. Let's try:
 
-*)
+**)
 
 (* +CODE:begin *)
 let () =
@@ -139,8 +140,8 @@ let () =
    The trunk of the tree (our main house, if you wish), will correspond to the
    layout associated with the window of the GUI. In Bogue we often call this
    special layout the "top layout", or "top house". (Yes, our tree grows
-   top-down, like family trees.) See the "tree" tutorial for more details (not
-   ready yet!)  +SIDE:end
+   top-down, like family trees.) See the {{!page-layouts}"Layouts"} tutorial for
+   more details. +SIDE:end
 
    So, we want to display an image below the label. Our label is a widget:
    {[
@@ -154,7 +155,7 @@ let () =
 
    Now, to put one on top of the other, we use the function [Layout.tower_of_w]
    (short for "tower of widget") which constructs a "tower":
-*)
+**)
 
 (* +CODE:begin *)
 let () =
@@ -177,7 +178,7 @@ let () =
    constructs a new layout by piling up the rooms vertically.
 
    The doc for
-   {{:http://sanette.github.io/bogue/Bogue.Layout.html#VALtower_of_w}[tower_of_w]}
+   {{:https://sanette.github.io/bogue/Bogue.Layout.html#VALtower_of_w}[tower_of_w]}
    shows interesting options. For instance, to center everything horizontally,
    use [~align:Draw.Center]:
 
@@ -189,7 +190,7 @@ What about applying what we've just learned to write "Hello world" {e vertically
 
 {b Solution:} Let's use [Layout.tower_of_w] to build a "tower" of letters.
 
-*)
+**)
 
 (* +CODE:begin *)
 let vertical text =
@@ -215,4 +216,4 @@ let () =
    course, a crucial part of a GUI is missing: user interaction. This will be
    the goal of the {{!page-counter}"counter"} tutorial.
 
-*)
+**)

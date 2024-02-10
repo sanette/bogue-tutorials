@@ -38,9 +38,25 @@ sed -i "s|(\* +CODE:end \*)|]}|g" $mld
 sed -i "s|+SIDE:begin|{%html:<div class=\"sidenote\"><div class=\"collapse\"></div><div class=\"content\">%}|g" $mld
 sed -i "s|+SIDE:end|{%html:</div></div>%}|g" $mld
 sed -i 's|+IMAGE:"\([^\"]*\)"|{%html:<div class="figure"><img src="\1" srcset="\1 2x"></div>%}|g' $mld
-sed -i -z "s|(\* +HIDE:begin \*).*(\* +HIDE:end \*)||g" $mld
+
+
+# sed -i -z "s|(\* +HIDE:begin \*).*(\* +HIDE:end \*)||g" $mld
+
+# using perl for the ! operator
+# https://stackoverflow.com/questions/23403494/perl-matching-string-not-containing-pattern
+#perl -p -e  's|BEG(?:(?!BEG).)*END|HIDDEN|g' <<< 'How BEG hide1 END are BEG 5hide2 END you?'
+# How HIDDEN are HIDDEN you?
+perl -i -0pe 's|\(\* \+HIDE:begin \*\)(?:(?!\(\* \+HIDE:begin \*\)).)*\(\* \+HIDE:end \*\)||sg' $mld
+
+
 sed -i -z "s|(\*\*[^/]||g" $mld
-sed -i "s|*)||g" $mld
+
+# Pour traiter les lignes comportant uniquement "(**", on peut aussi
+# faire [sed "s/\((\*\*[^/]\|(\*\*$\)//g"] si on veut éviter le [-z]
+
+sed -i "s|\*\*)||g" $mld
+
+#sed -i -z "s|(\*\*[^/]\(.*\)\*)|\1|g" $mld # doesn't work (greedy)
 
 # https://github.com/ocaml/odoc/issues/998
 sed -i '1s|^|{%html: <!-- auto-generated file --> %}\n|' $mld

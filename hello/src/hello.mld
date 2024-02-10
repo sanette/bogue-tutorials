@@ -1,5 +1,6 @@
 {%html: <!-- auto-generated file --> %}
-{0 Bogue tutorial — Hello world.} 
+{0 Bogue tutorial — Hello world.}
+ 
 
 
    In this tutorial we will learn how to open a graphical window displaying a
@@ -9,7 +10,7 @@
 {1 Hello world}
 
    Let's start right ahead with the "minimal code" mentionned in Bogue's
-   {{:http://sanette.github.io/bogue/Principles.html}documentation}:
+   {{:https://sanette.github.io/bogue/Principles.html}documentation}:
 
 
 {[
@@ -65,7 +66,7 @@ let () =
 ]}
 
    Why is this function called "resident"? Well, if you browse
-   {{:http://sanette.github.io/bogue/Bogue.html}Bogue's API}, you will notice
+   {{:https://sanette.github.io/bogue/Bogue.html}Bogue's API}, you will notice
    that Bogue uses a "housing" metaphor: a GUI is a big house with inhabitants
    (the widgets) living in various rooms (the layouts).
 
@@ -137,8 +138,8 @@ let () =
    The trunk of the tree (our main house, if you wish), will correspond to the
    layout associated with the window of the GUI. In Bogue we often call this
    special layout the "top layout", or "top house". (Yes, our tree grows
-   top-down, like family trees.) See the "tree" tutorial for more details (not
-   ready yet!)  {%html:</div></div>%}
+   top-down, like family trees.) See the {{!page-layouts}"Layouts"} tutorial for
+   more details. {%html:</div></div>%}
 
    So, we want to display an image below the label. Our label is a widget:
    {[
@@ -174,7 +175,7 @@ let () =
    constructs a new layout by piling up the rooms vertically.
 
    The doc for
-   {{:http://sanette.github.io/bogue/Bogue.Layout.html#VALtower_of_w}[tower_of_w]}
+   {{:https://sanette.github.io/bogue/Bogue.Layout.html#VALtower_of_w}[tower_of_w]}
    shows interesting options. For instance, to center everything horizontally,
    use [~align:Draw.Center]:
 

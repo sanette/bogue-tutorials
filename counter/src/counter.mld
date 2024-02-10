@@ -16,14 +16,13 @@
    widgets. Let's place them horizontally in a layout, using the function
    [Layout.flat_of_w].
 
-   {%html:<div class="sidenote"><div class="collapse"></div><div class="content">%}
-   Remember that Bogue uses the "housing" metaphor. The function [flat_of_w]
-   (for: "flat of widgets") constructs a flat house from a list of widgets. Each
-   widget will be installed in a room, and the house (of type [Layout.t]) is
-   built by placing the rooms next to each other.
-   {%html:</div></div>%}
+   {%html:<div class="sidenote"><div class="collapse"></div><div class="content">%} Remember that Bogue uses the "housing" metaphor. The function
+   [flat_of_w] (for: "flat of widgets") constructs a flat house from a list of
+   widgets. Each widget will be installed in a room, and the house (of type
+   [Layout.t]) is built by placing the rooms next to each other. {%html:</div></div>%}
 
    Ok, so let's try this.
+
 
 
 {[
@@ -71,15 +70,18 @@ Notice how we aliased the [Widget] module by [W]. This saves space and time,
 let x = ref 0
 ]}
 
-and a function to increase this: 
+   and a function to increase this:
+
+
 
 {[
 let add_cookie () = incr x
 ]}
 
-That's about it for the pure logic. Of course, in a real app we would do
-    something with [x], for instance order the correct amount of chocolate
-    chips. 
+   That's about it for the pure logic. Of course, in a real app we would do
+   something with [x], for instance order the correct amount of chocolate chips.
+
+
 
 
 {1 Connecting the widgets}
@@ -105,6 +107,7 @@ let update c n =
    function [W.set_text] makes sense. If we wanted to restrict to widgets of
    "label" type, we could have done:
 
+ 
 
 {[
 let _update_label c n =
@@ -134,7 +137,8 @@ let () =
   |> Bogue.run
 ]}
 
-{%html:<div class="figure"><img src="counter.webp" srcset="counter.webp 2x"></div>%}
+   {%html:<div class="figure"><img src="counter.webp" srcset="counter.webp 2x"></div>%}
 
-How cool is that! [;)]
+   How cool is that! [;)]
+
 

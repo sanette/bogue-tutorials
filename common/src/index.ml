@@ -3,6 +3,20 @@
 
    +IMAGE:"bogue-icon.png" Welcome to the Bogue tutorials!
 
+   + {{!page-hello}Hello world}
+   + {{!page-counter}A simple counter}
+   + {{!page-layouts}Layouts : a tree structure}
+   + {{!page-widgets}Widgets and connections : a graph structure}
+   + {{!page-modif_parent}Self-modifying layouts}
+   + More to come...
+**)
+(* +HIDE:begin *)
+(* DO NOT MODIFY THE LAST LINE ABOVE: "+ More to come...". See new_tuto.sh *)
+(* +HIDE:end *)
+
+(**
+   {1 Installing the tutorials (optional)}
+
    These tutorials can be simply
    {{:https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html#ready?}read
    online}, but of course it's better (and more fun!) to execute the various
@@ -98,9 +112,9 @@
    + {{!page-widgets}Widgets and connections : a graph structure}
    + {{!page-modif_parent}Self-modifying layouts}
    + More to come...
-*)
+**)
 (* +HIDE:begin *)
-(* DO NOT MODIFY THE LAST LINE ABOVE: "More to come...". See new_tuto.sh *)
+(* DO NOT MODIFY THE LAST LINE ABOVE: "+ More to come...". See new_tuto.sh *)
 (* +HIDE:end *)
 
 (**
@@ -108,4 +122,4 @@
 
    See the {{:https://github.com/sanette/bogue-tutorials}Github repository}.
 
-*)
+**)

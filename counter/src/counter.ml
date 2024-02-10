@@ -1,4 +1,4 @@
-(** {0 Bogue-tutorial — A simple counter.} *)
+(** {0 Bogue-tutorial — A simple counter.} **)
 
 (**
 
@@ -16,15 +16,14 @@
    widgets. Let's place them horizontally in a layout, using the function
    [Layout.flat_of_w].
 
-   +SIDE:begin
-   Remember that Bogue uses the "housing" metaphor. The function [flat_of_w]
-   (for: "flat of widgets") constructs a flat house from a list of widgets. Each
-   widget will be installed in a room, and the house (of type [Layout.t]) is
-   built by placing the rooms next to each other.
-   +SIDE:end
+   +SIDE:begin Remember that Bogue uses the "housing" metaphor. The function
+   [flat_of_w] (for: "flat of widgets") constructs a flat house from a list of
+   widgets. Each widget will be installed in a room, and the house (of type
+   [Layout.t]) is built by placing the rooms next to each other. +SIDE:end
 
    Ok, so let's try this.
-*)
+
+**)
 
 (* +CODE:begin *)
 open Bogue
@@ -65,21 +64,26 @@ let () =
 
     We need a mutable variable for the number of cookies:
 
-*)
+**)
 
 (* +CODE:begin *)
 let x = ref 0
 (* +CODE:end *)
 
-(** and a function to increase this: *)
+(**
+   and a function to increase this:
+
+**)
 
 (* +CODE:begin *)
 let add_cookie () = incr x
 (* +CODE:end *)
 
-(** That's about it for the pure logic. Of course, in a real app we would do
-    something with [x], for instance order the correct amount of chocolate
-    chips. *)
+(**
+   That's about it for the pure logic. Of course, in a real app we would do
+   something with [x], for instance order the correct amount of chocolate chips.
+
+**)
 
 
 (** {1 Connecting the widgets}
@@ -93,7 +97,7 @@ let add_cookie () = incr x
 
     In our case, the [count] widget must be updated when [x] changes. Let's
     write a generic function for this:
-*)
+**)
 
 (* +CODE:begin *)
 let update c n =
@@ -105,7 +109,8 @@ let update c n =
    [count !x]. But it could be applied to any type of widget for which the
    function [W.set_text] makes sense. If we wanted to restrict to widgets of
    "label" type, we could have done:
-*)
+
+ **)
 
 (* +CODE:begin *)
 let _update_label c n =
@@ -123,7 +128,7 @@ let _update_label c n =
 
    Here is our complete GUI:
 
-*)
+**)
 (* +CODE:begin *)
 let () =
   let label = W.label "Cookies:" in
@@ -136,7 +141,9 @@ let () =
   |> Bogue.run
 (* +CODE:end *)
 
-(** +IMAGE:"counter.webp"
+(**
+   +IMAGE:"counter.webp"
 
-How cool is that! [;)]
-*)
+   How cool is that! [;)]
+
+**)

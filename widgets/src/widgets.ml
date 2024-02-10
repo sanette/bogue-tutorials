@@ -1,4 +1,4 @@
-(** {0 Bogue-tutorial — Widgets and connections : a graph structure.} *)
+(** {0 Bogue-tutorial — Widgets and connections : a graph structure.}  **)
 
 
 (**
@@ -17,7 +17,9 @@
    In Bogue, user interaction is done at the level of {b Widgets}. For instance,
    one can use a Button widget to perform that task, namely using
    {{:http://sanette.github.io/bogue/Bogue.Widget.html#VALbutton}[Widget.button]}
-   with the [~action] parameter. *)
+   with the [~action] parameter.
+
+**)
 
 (* +CODE:begin *)
 open Bogue
@@ -37,7 +39,7 @@ let () =
    selected by the user with the Slider. (Think of a "volume" slider for our
    audio player).
 
- *)
+ **)
 
 (* +CODE:begin *)
 let () =
@@ -137,13 +139,14 @@ let () =
    First, let us rewrite the previous "Volume slider+label" app using an
    explicit connection.
 
-  *)
+  **)
 
 (** {2 Triggers}
 
     Here is the usual list of events that a slider normally responds to. In
     recent Bogue versions (>= 20240121), this can be obtained by the variable
-    [Slider.triggers]. *)
+    [Slider.triggers].
+ **)
 (* +CODE:begin *)
 let slider_triggers =
   let open Trigger in
@@ -156,7 +159,8 @@ let slider_triggers =
     pure function, contrary to the action used in [slider_with_action] above,
     which had to access the closure (external variable) [vol]. We don't care
     about which specific event triggered the action, hence the variable [_ev] is
-    not used.  *)
+    not used.
+ **)
 (* +CODE:begin *)
 let update_text src dst _ev =
   let v = Slider.value (W.get_slider src) in
@@ -166,7 +170,8 @@ let update_text src dst _ev =
 (** {2 The connected Volume slider (one way)}
 
     And here is the Bogue app. Notice the [~connections:[c]] argument when
-    constructing our board.  *)
+    constructing our board.
+ **)
 (* +CODE:begin *)
 let () =
   let label = W.label "Volume:" in
@@ -185,7 +190,8 @@ let () =
     that our action is very fast, so launching a new thread for every slider
     motion would be overkill. That's why we use [W.connect_main] (which is an
     alias for [W.connect ~priority:W.Main]) to tell Bogue it should run the
-    action in the main thread.  *)
+    action in the main thread.
+ **)
 
 (** {2 The two-way connected Volume slider}
 
@@ -194,7 +200,7 @@ let () =
 
     We define the list of events that should trigger the connection from the
     Text_input side, and the action to perform.
-*)
+**)
 
 (* +CODE:begin *)
 let text_triggers = Tsdl.Sdl.Event.[text_editing; text_input; key_down; key_up]
@@ -205,7 +211,8 @@ let update_slider src dst _ev =
   | None -> print_endline "Invalid entry"
 (* +CODE:end *)
 
-(** And here is our first multi-directional application! *)
+(** And here is our first multi-directional application!
+ **)
 
 (* +CODE:begin *)
 let () =
@@ -252,7 +259,8 @@ let () =
 
    Let's code this! We will use a simple Box widget for each square. We need 3
    different states: empty, black, white. In order to draw a colored disc (the
-   coin), a simple rounded background with radius [w/2] will do the trick. *)
+   coin), a simple rounded background with radius [w/2] will do the trick.
+ **)
 
 (* +CODE:begin *)
 type state = Empty | Black | White
@@ -284,7 +292,8 @@ The [make_widgets] function will initialize a array of empty squares. But we
     don't have any graphics yet, because we didn't define any layout. Let's do
     this now. Each Box will belong to a layout, and then we group the layouts
     into a square board. To make it more fancy, let us alternate the background
-    color of the small layout in order to obtain a nice checkerboard. *)
+    color of the small layout in order to obtain a nice checkerboard.
+ **)
 
 (* +CODE:begin *)
 let dark = Style.(of_bg (opaque_bg Draw.(find_color "saddlebrown")))
@@ -303,9 +312,12 @@ let make_layout ws =
   |> L.tower ~margins:0
 (* +CODE:end *)
 
-(** Of course our code is not finished, we didn't add any logic yet, but clearly
-    we can't resist displaying what we have so far! It's just a matter of a few
-    lines: *)
+(**
+   Of course our code is not finished, we didn't add any logic yet, but clearly
+   we can't resist displaying what we have so far! It's just a matter of a few
+   lines:
+
+ **)
 
 (* +CODE:begin *)
 let show_board n =
@@ -328,7 +340,7 @@ let () = show_board 8;;
     Let's code the logic now. Obviously, we need a function that tells us in
     which state a Box is. In a more complicated game I would recommend having a
     separate [state array], but here it is enough to check the Box's style.
-*)
+**)
 
 (* +CODE:begin *)
 let get_state box =
@@ -339,10 +351,12 @@ let get_state box =
   else failwith "Unrecognized box style"
 (* +CODE:end *)
 
-(** Now, connections. The connection between a square and one of its neighbors
-    can be activated only if the source square [b1] is empty, and it consists in
-    checking whether the target square [b2] is occupied, and then flip that
-    coin. *)
+(**
+   Now, connections. The connection between a square and one of its neighbors
+   can be activated only if the source square [b1] is empty, and it consists in
+   checking whether the target square [b2] is occupied, and then flip that coin.
+
+ **)
 
 (* +CODE:begin *)
 let flip_neighbor b1 b2 _ =
@@ -357,8 +371,11 @@ let connect_neighbor b1 b2 list =
   list := c :: !list
 (* +CODE:end *)
 
-(** Next, we connect the square with itself: we put the coin on the square and
-    take turn. *)
+(**
+   Next, we connect the square with itself: we put the coin on the square and
+   take turn.
+
+ **)
 
 (* +CODE:begin *)
 let next player = match !player with
@@ -377,10 +394,13 @@ let connect_self player b list =
   list := c :: !list
 (* +CODE:end *)
 
-(** Finally, we group all the necessary connections {b in the correct
-    order}. (Indeed, if you look carefully you will see that we must flip the
-    neighbors {e before} placing our coin on the square.) Note also that the
-    following function constructs the [list] in reverse order. *)
+(**
+   Finally, we group all the necessary connections {b in the correct
+   order}. (Indeed, if you look carefully you will see that we must flip the
+   neighbors {e before} placing our coin on the square.) Note also that the
+   following function constructs the [list] in reverse order.
+
+**)
 
 (* +CODE:begin *)
 let make_connections player ws =
@@ -401,7 +421,9 @@ let make_connections player ws =
 
 (** {2 The game}
 
-That's it. We can run the game! *)
+    That's it. We can run the game!
+
+ **)
 
 (* +CODE:begin *)
 let main n =
@@ -427,7 +449,7 @@ let () = main 8;;
     I leave it to you to make it more polished: add a score line, show whose
     turn it is, add animations, etc.
 
-*)
+**)
 
 (** {1 Summary}
 
@@ -436,4 +458,5 @@ let () = main 8;;
     start by thinking about the {e connection graph}. This is a way to represent
     how widgets talk to each other upon user interaction. The widget graph can
     have any topology (including cycles), and is essentially independent from
-    the "Layout tree" described in the {{!page-layouts}Layouts} tutorial.  *)
+    the "Layout tree" described in the {{!page-layouts}Layouts} tutorial.
+**)
