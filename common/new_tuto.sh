@@ -12,7 +12,7 @@ fi
 
 if [[ $# == 0 ]]
 then
-    >&2 echo "The (machine) name of the tutorial should be given on the command line."
+    >&2 echo "The machine name of the tutorial (without spaces) should be given on the command line."
     exit 1
 else
     tuto=$1
@@ -36,11 +36,11 @@ mkdir -p $tuto/src
 echo "TUTO = $tuto" > $tuto/Makefile
 cat common/Makefile.main >> $tuto/Makefile
 cp common/Makefile.src $tuto/src/Makefile
-echo -e "(** {0 Bogue-tutorial — $fullname.} *)\n" > $tuto/src/$tuto.ml
+echo -e "(** {0 Bogue-tutorial — $fullname.} **)\n" > $tuto/src/$tuto.ml
 cp common/dune.src $tuto/src/dune
 sed -i "s|%%TUTO%%|$tuto|g" $tuto/src/dune
 
-if [[ "A"$(grep "SUBDIRS ="  Makefile | grep $tuto) == "A" ]]
+if [[ "A"$(grep "SUBDIRS ="  Makefile | grep $tuto || :) == "A" ]]
 then
     echo "Updating Makefile."
     sed -i "s|SUBDIRS = \(.*\)|SUBDIRS = \1 $tuto|g" Makefile
@@ -48,7 +48,7 @@ else
     echo "Warning: $tuto was already present in Makefile."
 fi
 
-if [[ "A"$(grep "!page-$tuto" common/src/index.ml) == "A" ]]
+if [[ "A"$(grep "!page-$tuto" common/src/index.ml || :) == "A" ]]
 then
     echo "Updating index."
     sed -i "s|+ More to come...|+ {{!page-$tuto}$fullname}\n   + More to come...|g" common/src/index.ml

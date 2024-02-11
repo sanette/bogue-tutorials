@@ -11,7 +11,7 @@
    + More to come...
 **)
 (* +HIDE:begin *)
-(* DO NOT MODIFY THE LAST LINE ABOVE: "+ More to come...". See new_tuto.sh *)
+(* DO NOT MODIFY THE LAST LINE ABOVE: "More to come...". See new_tuto.sh *)
 (* +HIDE:end *)
 
 (**
@@ -114,7 +114,7 @@
    + More to come...
 **)
 (* +HIDE:begin *)
-(* DO NOT MODIFY THE LAST LINE ABOVE: "+ More to come...". See new_tuto.sh *)
+(* DO NOT MODIFY THE LAST LINE ABOVE: "More to come...". See new_tuto.sh *)
 (* +HIDE:end *)
 
 (**
