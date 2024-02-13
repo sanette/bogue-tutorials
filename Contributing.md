@@ -19,8 +19,8 @@ This will generate the documentation and compile the code.
 
 You may use `make view` to open the tutorials in a browser.
 
-This works in the root directory. But more is available in each
-tutorial directory: `make exe`. For instance
+The above commands work in the package root directory. But more is
+available in each tutorial directory: `make exe`. For instance
 
 ```
 cd hello
@@ -29,7 +29,7 @@ make exe
 
 This will execute the code of the tutorial.
 
-## Create a new tutorial
+## Creating a new tutorial
 
 To create a new tutorial, download the repository, `cd
 bogue-tutorials`, and execute:
@@ -42,7 +42,7 @@ where you should replace `great_tutorial` by the machine name of your
 tutorial (it has to be different from all existing subdirectories),
 and `My great tutorial` by the full title of your tutorial.
 
-You now can write your tutorial in `great_tutorial/src/great_tutorial.ml`.
+You can now write your tutorial in `great_tutorial/src/great_tutorial.ml`.
 
 ### Syntax
 
@@ -56,15 +56,17 @@ existing tutos, but here are the various constructs you may use:
   use any of `ocamldoc/odoc` syntax (emphasis, sections, links, etc.).
 + **Images** can be easily included using `+IMAGE:"myimage.png"`
 + **Side notes** (folded by default in the final html document) are
-	surrounded by `+SIDE:begin` and `+SIDE:end`. (Side note are
-	written in a standard text environment.)
+	surrounded by `+SIDE:begin` and `+SIDE:end`. (Images and Side note
+	must be included in a standard text environment.)
 + **Code** that will be compiled (and can be executed with `make exe`)
-  should be written _outside_ comments, and surrounded by
+  should be written _outside_ any standard text environment, and surrounded by
   `(* +CODE:begin *)` and `(* +CODE:end *)`:
   ```ocaml
+  (** My nice explanation... **)'
   (* +CODE:begin *)
   let () = print_endline "Hello"
   (* +CODE:end *)
+  (** Another nice explanation... **)
   ```
   This may sound weird, but the advantage is that the code will be
   analyzed and pretty-printed by emacs/merlin as any code in an `.ml`
@@ -84,3 +86,20 @@ make view
 ```
 
 You may then offer a pull request!
+
+### Disabling a tutorial
+
+In the terminal, type
+
+```bash
+common/disable_tuto.sh great_tutorial
+```
+
+This will remove the `great_tutorial` frm the list of available (and
+compiled) tutorials, but will {b not} delete the `great_tutorial`
+directory with the source of the tutorial.
+
+If you want to enable it again:
+```bash
+common/enable_tuto.sh great_tutorial
+```
