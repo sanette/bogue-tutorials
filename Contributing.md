@@ -95,8 +95,8 @@ In the terminal, type
 common/disable_tuto.sh great_tutorial
 ```
 
-This will remove the `great_tutorial` frm the list of available (and
-compiled) tutorials, but will {b not} delete the `great_tutorial`
+This will remove the `great_tutorial` from the list of available (and
+compiled) tutorials, but will **not** delete the `great_tutorial`
 directory with the source of the tutorial.
 
 If you want to enable it again:
