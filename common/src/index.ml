@@ -24,20 +24,20 @@
    they can be entirely (and automatically) compiled and executed.} Hence, it's
    a good idea to install the [bogue-tutorials] package on your machine:
 
-   {[
+   {@bash[
      opam install --with-doc bogue-tutorials
    ]}
 
    This will not only download the tutorials: you can then view them locally
    with
 
-   {[
+   {@bash[
      firefox $(opam var bogue-tutorials:doc)/index.html
    ]}
 
    or, if you didn't use the [--with-doc] option:
 
-   {[
+   {@bash[
      firefox $(opam var bogue-tutorials:build)/docs/bogue-tutorials/index.html
    ]}
 
