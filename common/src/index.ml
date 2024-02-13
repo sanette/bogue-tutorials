@@ -18,7 +18,7 @@
    {1 Installing the tutorials (optional)}
 
    These tutorials can be simply
-   {{:https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html#ready?}read
+   {{:https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html}read
    online}, but of course it's better (and more fun!) to execute the various
    code chunks by yourself. In fact, all tutorials have been designed so that
    they can be entirely compiled and executed. Hence, it's a good idea to
@@ -28,10 +28,14 @@
      opam install bogue-tutorials
    ]}
 
-   This will not only download the tutorials (you can then view them locally
-   with [firefox $(opam var
-   bogue-tutorials:build)/docs/bogue-tutorials/index.html]), but also ensure
-   that the whole code is compatible with your
+   This will not only download the tutorials: you can then view them locally
+   with
+
+   {[
+     firefox $(opam var bogue-tutorials:build)/docs/bogue-tutorials/index.html
+   ]}
+
+   but also ensure that the whole code is compatible with your
    {{:https://github.com/sanette/bogue}Bogue} install. In fact, if you didn't
    install Bogue beforehand, this will automatically install a compatible
    version. You can also download the source and [opam install .]; in both cases

@@ -8,7 +8,7 @@ Widgets and connections: a graph structure (includes a complete game!)
 Hide side-notes by default
 Automatize creation of new tutorials (common/new_tuto.sh)
 
-improve make_mld
+improve `make_mld`, add `disable_tuto` and `enable_tuto`
 
 use new syntax (** AAAA **) for standard text
 
