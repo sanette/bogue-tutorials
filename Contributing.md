@@ -62,7 +62,7 @@ existing tutos, but here are the various constructs you may use:
   should be written _outside_ any standard text environment, and surrounded by
   `(* +CODE:begin *)` and `(* +CODE:end *)`:
   ```ocaml
-  (** My nice explanation... **)'
+  (** My nice explanation... **)
   (* +CODE:begin *)
   let () = print_endline "Hello"
   (* +CODE:end *)
