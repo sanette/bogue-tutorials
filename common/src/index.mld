@@ -17,16 +17,22 @@
    These tutorials can be simply
    {{:https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html}read
    online}, but of course it's better (and more fun!) to execute the various
-   code chunks by yourself. In fact, all tutorials have been designed so that
-   they can be entirely compiled and executed. Hence, it's a good idea to
-   install the [bogue-tutorials] package on your machine:
+   code chunks by yourself. {e In fact, all tutorials have been designed so that
+   they can be entirely (and automatically) compiled and executed.} Hence, it's
+   a good idea to install the [bogue-tutorials] package on your machine:
 
    {[
-     opam install bogue-tutorials
+     opam install --with-doc bogue-tutorials
    ]}
 
    This will not only download the tutorials: you can then view them locally
    with
+
+   {[
+     firefox $(opam var bogue-tutorials:doc)/index.html
+   ]}
+
+   or, if you didn't use the [--with-doc] option:
 
    {[
      firefox $(opam var bogue-tutorials:build)/docs/bogue-tutorials/index.html
@@ -36,8 +42,8 @@
    {{:https://github.com/sanette/bogue}Bogue} install. In fact, if you didn't
    install Bogue beforehand, this will automatically install a compatible
    version. You can also download the source and [opam install .]; in both cases
-   you may append the option [--deps-only] if you don't want to install
-   anything.
+   you may append the option [--deps-only] if you don't want to install a local
+   copy of the tutorials.
 
    {1 How to execute these tutorials}
 
