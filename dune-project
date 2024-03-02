@@ -16,6 +16,6 @@
  (depends
    ocaml
    dune
-  (bogue (>= 20221112)))
+  (bogue (>= 20240224)))
  (tags
   (gui bogue tutorial)))

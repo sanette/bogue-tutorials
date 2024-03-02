@@ -13,7 +13,7 @@ bug-reports: "https://github.com/sanette/bogue-tutorials/issues"
 depends: [
   "ocaml"
   "dune" {>= "3.2"}
-  "bogue" {>= "20221112"}
+  "bogue" {>= "20240224"}
   "odoc" {with-doc}
 ]
 dev-repo: "git+https://github.com/sanette/bogue-tutorials.git"

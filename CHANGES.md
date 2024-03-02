@@ -1,14 +1,17 @@
-# in preparation
+# 0.2.0 -- 2024/03/02
+
+Requires Bogue >= 20240224
 
 2 new tutorials:
 
-Layouts: a tree structure
-Widgets and connections: a graph structure (includes a complete game!)
++ Layouts: a tree structure
++ Widgets and connections: a graph structure (includes a complete game!)
 
 Hide side-notes by default
 Automatize creation of new tutorials (common/new_tuto.sh)
 
-improve `make_mld`, add `disable_tuto` and `enable_tuto`
+Improve `make_mld`, add `disable_tuto` and `enable_tuto`: we now have
+a super automagic workflow (but a bit brittle) for creating tutorials!
 
 use new syntax (** AAAA **) for standard text
 
