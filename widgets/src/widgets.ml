@@ -5,7 +5,7 @@
 
    In this tutorial, we will learn what {e connections} are for Bogue, why they
    are needed for user interaction, and how to construct them. We will finish by
-   coding a {e complete game}, in the Reversi-Othello style.
+   coding a (playable!) {e game}, in the Reversi-Othello style.
 
    {1 Widgets and actions }
 

@@ -5,7 +5,7 @@ Requires Bogue >= 20240224
 2 new tutorials:
 
 + Layouts: a tree structure
-+ Widgets and connections: a graph structure (includes a complete game!)
++ Widgets and connections: a graph structure (includes a "complete" game!)
 
 ## Rendering
 
