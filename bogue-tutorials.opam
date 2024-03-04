@@ -11,8 +11,7 @@ homepage: "https://github.com/sanette/bogue-tutorials"
 doc: "https://sanette.github.io/bogue-tutorials/bogue-tutorials/index.html"
 bug-reports: "https://github.com/sanette/bogue-tutorials/issues"
 depends: [
-  "ocaml"
-  "dune" {>= "3.2"}
+  "dune" {>= "3.2" & build}
   "bogue" {>= "20240224"}
   "odoc" {with-doc}
 ]

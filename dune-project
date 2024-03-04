@@ -14,8 +14,7 @@
  (synopsis "Bogue Tutorials")
  (description "Several tutorials for learning how to create GUIs with Bogue")
  (depends
-   ocaml
-   dune
+  (dune :build)
   (bogue (>= 20240224)))
  (tags
   (gui bogue tutorial)))
