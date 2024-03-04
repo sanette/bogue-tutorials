@@ -39,7 +39,7 @@ sed "s|(\* +CODE:begin \*)|{[|g" $ml > $mld
 sed -i'' -e "s|(\* +CODE:end \*)|]}|g" $mld
 sed -i'' -e "s|+SIDE:begin|{%html:<div class=\"sidenote\"><div class=\"collapse\"></div><div class=\"content\">%}|g" $mld
 sed -i'' -e "s|+SIDE:end|{%html:</div></div>%}|g" $mld
-sed -i'' -e's|+IMAGE:"\([^\"]*\)"|{%html:<div class="figure"><img src="\1" srcset="\1 2x"></div>%}|g' $mld
+sed -i'' -e 's|+IMAGE:"\([^\"]*\)"|{%html:<div class="figure"><img src="\1" srcset="\1 2x"></div>%}|g' $mld
 
 
 # sed -i -z "s|(\* +HIDE:begin \*).*(\* +HIDE:end \*)||g" $mld
