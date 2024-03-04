@@ -60,7 +60,7 @@ fi
 
 regs="s/\(SUBDIRS =.*\) ${remove}\b/\1/"
 echo -n "Udpating Makefile..."
-sed -i "$regs" Makefile
+sed -i'' -e "$regs" Makefile
 echo "OK"
 
 echo -n "Updating index..."

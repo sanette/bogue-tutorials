@@ -33,11 +33,13 @@ mld=$base.mld
 ml=$base.ml
 echo "Converting $ml to $mld"
 
+# Mac OS issues:
+# https://stackoverflow.com/questions/4247068/sed-command-with-i-option-failing-on-mac-but-works-on-linux
 sed "s|(\* +CODE:begin \*)|{[|g" $ml > $mld
-sed -i "s|(\* +CODE:end \*)|]}|g" $mld
-sed -i "s|+SIDE:begin|{%html:<div class=\"sidenote\"><div class=\"collapse\"></div><div class=\"content\">%}|g" $mld
-sed -i "s|+SIDE:end|{%html:</div></div>%}|g" $mld
-sed -i 's|+IMAGE:"\([^\"]*\)"|{%html:<div class="figure"><img src="\1" srcset="\1 2x"></div>%}|g' $mld
+sed -i'' -e "s|(\* +CODE:end \*)|]}|g" $mld
+sed -i'' -e "s|+SIDE:begin|{%html:<div class=\"sidenote\"><div class=\"collapse\"></div><div class=\"content\">%}|g" $mld
+sed -i'' -e "s|+SIDE:end|{%html:</div></div>%}|g" $mld
+sed -i'' -e's|+IMAGE:"\([^\"]*\)"|{%html:<div class="figure"><img src="\1" srcset="\1 2x"></div>%}|g' $mld
 
 
 # sed -i -z "s|(\* +HIDE:begin \*).*(\* +HIDE:end \*)||g" $mld
@@ -49,14 +51,14 @@ sed -i 's|+IMAGE:"\([^\"]*\)"|{%html:<div class="figure"><img src="\1" srcset="\
 perl -i -0pe 's|\(\* \+HIDE:begin \*\)(?:(?!\(\* \+HIDE:begin \*\)).)*\(\* \+HIDE:end \*\)||sg' $mld
 
 
-sed -i -z "s|(\*\*[^/]||g" $mld
+sed -i'' -z -e "s|(\*\*[^/]||g" $mld
 
 # Pour traiter les lignes comportant uniquement "(**", on peut aussi
 # faire [sed "s/\((\*\*[^/]\|(\*\*$\)//g"] si on veut éviter le [-z]
 
-sed -i "s|\*\*)||g" $mld
+sed -i'' -e "s|\*\*)||g" $mld
 
 #sed -i -z "s|(\*\*[^/]\(.*\)\*)|\1|g" $mld # doesn't work (greedy)
 
 # https://github.com/ocaml/odoc/issues/998
-sed -i '1s|^|{%html: <!-- auto-generated file --> %}\n|' $mld
+sed -i'' -e '1s|^|{%html: <!-- auto-generated file --> %}\n|' $mld

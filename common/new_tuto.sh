@@ -38,12 +38,12 @@ cat common/Makefile.main >> $tuto/Makefile
 cp common/Makefile.src $tuto/src/Makefile
 echo -e "(** {0 Bogue-tutorial — $fullname.} **)\n" > $tuto/src/$tuto.ml
 cp common/dune.src $tuto/src/dune
-sed -i "s|%%TUTO%%|$tuto|g" $tuto/src/dune
+sed -i'' -e "s|%%TUTO%%|$tuto|g" $tuto/src/dune
 
 if [[ "A"$(grep "SUBDIRS ="  Makefile | grep $tuto || :) == "A" ]]
 then
     echo "Updating Makefile."
-    sed -i "s|SUBDIRS = \(.*\)|SUBDIRS = \1 $tuto|g" Makefile
+    sed -i'' -e "s|SUBDIRS = \(.*\)|SUBDIRS = \1 $tuto|g" Makefile
 else
     echo "Warning: $tuto was already present in Makefile."
 fi
@@ -51,7 +51,7 @@ fi
 if [[ "A"$(grep "!page-$tuto" common/src/index.ml || :) == "A" ]]
 then
     echo "Updating index."
-    sed -i "s|+ More to come...|+ {{!page-$tuto}$fullname}\n   + More to come...|g" common/src/index.ml
+    sed -i'' -e "s|+ More to come...|+ {{!page-$tuto}$fullname}\n   + More to come...|g" common/src/index.ml
 else
     echo "Warning: {!page-$tuto} was already mentioned in common/src/index.ml"
 fi
