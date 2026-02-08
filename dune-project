@@ -14,6 +14,6 @@
  (synopsis "Bogue Tutorials")
  (description "Several tutorials for learning how to create GUIs with Bogue")
  (depends
-  (bogue (>= 20240224)))
+  (bogue (and (>= 20240224) (<= 20250815))))
  (tags
   (gui bogue tutorial)))
